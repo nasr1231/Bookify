@@ -1,0 +1,43 @@
+﻿@model CreateCategoryViewModel
+@{
+    ViewData["Title"] = "Create";
+}
+
+<!--
+    <link rel="stylesheet" type="text/css" href="~/assets/css/plugins.bundle.css" />
+<link rel="stylesheet" type="text/css" href="~/assets/css/style.bundle.css" />
+<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+<link rel="stylesheet" href="~/Bookify.styles.css" asp-append-version="true" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700" />
+-->
+
+<div class="card shadow-sm">
+    <div class="card-header">
+        <h3 class="card-title"> Category</h3>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-4">
+                <form method="post" asp-controller="Categories">
+
+                    <div class="mb-5">
+                        <div class="form-floating mb-2">
+                            <input type="text" class="form-control" placeholder="Name" asp-for="CategoryName" />
+                            <label asp-for="CategoryName"></label>
+                        </div>
+                        <span asp-validation-for="CategoryName" class="text-danger"></span>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-sm">
+                        <i class="bi bi-check2"></i>
+                        Save
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/assets/js/plugins.bundle.js"></script>
+<script src="~/assets/js/scripts.bundle.js"></script>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>

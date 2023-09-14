@@ -1,0 +1,31 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+.menu-title {
+    color: #303030;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.menu-title:hover{opacity:0.8;}
+.btn-primary {font-size: 14px;}
+.card-footer {text-align: center;}
+.category-header {
+    margin-bottom: 25px;
+}

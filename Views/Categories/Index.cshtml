@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<Category>
 
 @{
-    ViewData["Title"] = "Categories";
+    ViewData["Title"] = "Category";
 }
 
 <!--Category Header-->
@@ -64,10 +64,19 @@
                     {
                         <tr class="fs-4">
                             <td>@category.CategoryName</td>
-                            <td class="fw-bolder">@category.IsDeleted</td>
+                            <td class="fw-bolder">
+                                <span class="badge badge-@(@category.IsDeleted ? "danger" : "success")">
+                                    @(@category.IsDeleted ? "Deleted" : "Available")
+                                </span>          
+                            </td>
                             <td>@category.CreatedOn</td>
                             <td>@category.LastUpdatedOn</td>
-                            <td></td>
+                            <td>
+                                <a class="btn btn-secondary align-self-center" asp-controller="Categories" asp-action="Edit" asp-route-EditId="@category.CategoryId">
+                                    <i class="bi bi-pencil-fill"></i>
+                                    Edit
+                                </a>
+                            </td>
                         </tr>
                     }
                 </tbody>

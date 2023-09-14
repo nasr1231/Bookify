@@ -2,7 +2,8 @@
 {
     public class CreateCategoryViewModel
     {
-        [Required]
+        [MaxLength(60), Required]
+
         public string CategoryName { get; set; } = null!;
     }
 }

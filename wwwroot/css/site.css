@@ -29,3 +29,12 @@ body {
 .category-header {
     margin-bottom: 25px;
 }
+
+.table-responsive{
+    background-color: #fff;
+    border-radius: 12px;
+    text-align: center;
+    height: 400px;
+    font-size: 17px;
+    padding: 15px 15px 0px 15px;
+}

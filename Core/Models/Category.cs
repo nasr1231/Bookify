@@ -1,4 +1,5 @@
-﻿
+﻿using System.Diagnostics.CodeAnalysis;
+
 namespace Bookify.Core.Models
 {
     public class Category
@@ -10,6 +11,6 @@ namespace Bookify.Core.Models
         public string CategoryName { get; set; } = null!;
         public bool IsDeleted{ get; set; }
         public DateTime CreatedOn { get; set; } = DateTime.Now;
-        public DateTime LastUpdatedOn { get; set; }
+        public DateTime? LastUpdatedOn { get; set; }
     }
 }

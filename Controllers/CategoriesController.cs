@@ -1,5 +1,6 @@
 ﻿using Bookify.Core.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Bookify.Controllers
 {
@@ -14,7 +15,7 @@ namespace Bookify.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            var categories = _context.categories.ToList();
+            var categories = _context.categories.AsNoTracking().ToList();
             return View(categories);
         }
         [HttpGet]
@@ -52,6 +53,7 @@ namespace Bookify.Controllers
             };
             return View("Form", model);
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Edit(CategoryFormViewModel model)
@@ -69,6 +71,18 @@ namespace Bookify.Controllers
 
             _context.SaveChanges();
             return RedirectToAction(nameof(Index));
+        }
+        [HttpPost]
+        public IActionResult ToggleStatus(int statusid)
+        {
+            var category = _context.categories.Find(statusid);
+            if (category is null)
+                return NotFound();
+
+            category.IsDeleted = !category.IsDeleted;
+            category.LastUpdatedOn = DateTime.Now;
+            _context.SaveChanges();
+            return Ok();
         }
     }
 }

@@ -14,6 +14,9 @@ namespace Bookify.Data
             // Configure the IdentityUserLogin entity
             modelBuilder.Entity<IdentityUserLogin<string>>()
                 .HasKey(l => new { l.LoginProvider, l.ProviderKey });
+            modelBuilder.Entity<Category>()
+                .Property(m => m.LastUpdatedOn)
+                .IsRequired(false);
         }
         public DbSet<Category> categories { get; set; }
 

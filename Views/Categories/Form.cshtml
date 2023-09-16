@@ -23,10 +23,11 @@
                     }
                     <div class="mb-5">
                         <div class="form-floating mb-2">
-                            <input type="text" class="form-control" placeholder="Name" asp-for="CategoryName" />
+                            <input type="text" class="form-control" placeholder="Name" asp-for="CategoryName"  id="kt_docs_maxlength_threshold"/>
                             <label asp-for="CategoryName"></label>
+                            <span asp-validation-for="CategoryName" class="text-danger"></span>
                         </div>
-                        <span asp-validation-for="CategoryName" class="text-danger"></span>
+                        
                     </div>
 
                     <button type="submit" class="btn btn-primary btn-sm">
@@ -42,6 +43,14 @@
 <script src="~/assets/js/scripts.bundle.js"></script>
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/js/site.js" asp-append-version="true"></script>
+<script>
+    $('#kt_docs_maxlength_threshold').maxlength({
+        threshold: 20,
+        warningClass: "badge badge-primary",
+        limitReachedClass: "badge badge-success"
+    });
+</script>
+
 
 @section Scripts{ <!--This is to -->
     <partial name="_ValidationScriptsPartial" />

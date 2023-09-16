@@ -1,20 +1,5 @@
 html {
-  font-size: 14px;
-}
-
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-html {
-  position: relative;
-  min-height: 100%;
-}
-
-body {
-  margin-bottom: 60px;
+    font-size: 14px;
 }
 
 .menu-title {
@@ -23,18 +8,48 @@ body {
     font-weight: 500;
 }
 
-.menu-title:hover{opacity:0.8;}
-.btn-primary {font-size: 14px;}
-.card-footer {text-align: center;}
-.category-header {
-    margin-bottom: 25px;
+    .menu-title:hover {
+        opacity: 0.8;
+    }
+
+.btn-primary {
+    font-size: 14px;
 }
 
-.table-responsive{
+.table-responsive {
     background-color: #fff;
     border-radius: 12px;
     text-align: center;
     height: 400px;
     font-size: 17px;
     padding: 15px 15px 0px 15px;
+}
+
+.card-footer {
+    text-align: center;
+}
+
+.input-group-prepend {
+    margin: 0px 5px;
+    text-align: center;
+}
+
+.category-header {
+    margin-bottom: 25px;
+}
+/*Search Bar*/
+.has-search .form-control {
+    padding-left: 2.375rem;
+}
+
+.has-search .form-control-feedback {
+    position: absolute;
+    z-index: 2;
+    display: block;
+    width: 2.375rem;
+    height: 2.375rem;
+    line-height: 2.375rem;
+    text-align: center;
+    pointer-events: none;
+    color: #aaa;
 }

@@ -8,9 +8,9 @@ html {
     font-weight: 500;
 }
 
-.menu-title:hover {
-    opacity: 0.8;
-}
+    .menu-title:hover {
+        opacity: 0.8;
+    }
 
 .btn-primary {
     font-size: 14px;
@@ -69,6 +69,6 @@ html {
     width: 100%;
 }
 
-    .actions-row th .form-control {
-        border: 1px solid #ddd;
-    }
+.actions-row th .form-control {
+    border: 1px solid #ddd;
+}

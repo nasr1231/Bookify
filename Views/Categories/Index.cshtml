@@ -66,13 +66,13 @@
     else
     {
         <div class="table-responsive shadow">
+            <div class="actions-row">
+                <input type="text" class="form-control form-control h-40px bg-body ps-13 fs-7" name="search" value="" placeholder="Search..." data-kt-search-element="input">
+            </div>
             <table class="table category-table table-row-dashed table-row-gray-300 gy-7">
                 <thead>
                     <tr class="fw-bold fs-3 text-gray-800">
-                        <!--<th class="actions-row">
-                            <input type="text" class="form-control form-control h-40px bg-body ps-13 fs-7" name="search" value="" placeholder="Search..." data-kt-search-element="input">
-                        </th>
-                        -->
+                       
                         <th>
                             Category Name                         
                             <div class="dropup-center dropup options-button">
@@ -187,7 +187,7 @@
 										<!--end::Menu item-->
 										<!--begin::Menu item-->
 										<div class="menu-item px-3">
-                                            <a href="javascript:;" data-statusid="@category.CategoryId" class="menu-link flex-stack px-3 js-toggle-status">
+                                            <a href="javascript:;" data-id="@category.CategoryId" class="menu-link flex-stack px-3 js-toggle-status">
 												Change Status
 											</a>
 										</div>
@@ -204,21 +204,25 @@
     }
 </div>
 
+@Html.AntiForgeryToken()
+
 @section Scripts{
     <script>
         $(document).ready(function(){
             $('.js-toggle-status').on('click', function(){
                 var btn = $(this)
-
                 $.post(
                     {
-                        url: '/Categories/ToggleStatus/' + btn.data('statusid'),
+                        url: '/Categories/ToggleStatus/' + btn.data('id'),
+                        data: { 
+                            '__RequestVerificationToken': $('input[name="__RequestVerificationToken"]').val() 
+                        },
                         success: function(){
                             var status = btn.parent('tr').find('.js-status');
-                            var newStatus = status.text() === 'Deleted' ? 'Avaliable' : 'Deleted';
+                            var newStatus = status.text().trim() === 'Deleted' ? 'Avaliable' : 'Deleted';
                             status.text(newStatus).toggleClass('badge-light-success badge-light-danger');
                         }
-                    });
+                });
             });
         });
     </script>

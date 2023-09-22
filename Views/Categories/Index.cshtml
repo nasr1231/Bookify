@@ -45,6 +45,9 @@
 
 <!--Category Cards-->
 <div class="row">
+    <div class="d-flex">
+
+    </div>
     @if (!Model.Any())
     {
         <div class="alert alert-warning d-flex align-items-center p-5 mb-10">
@@ -66,11 +69,76 @@
             <table class="table category-table table-row-dashed table-row-gray-300 gy-7">
                 <thead>
                     <tr class="fw-bold fs-3 text-gray-800">
-                        <th>Category Name</th>
-                        <th>Status</th>
-                        <th>Creation Date</th>
-                        <th>Last Update Date</th>
-                        <th>Action</th>
+                        <!--<th class="actions-row">
+                            <input type="text" class="form-control form-control h-40px bg-body ps-13 fs-7" name="search" value="" placeholder="Search..." data-kt-search-element="input">
+                        </th>
+                        -->
+                        <th>
+                            Category Name                         
+                            <div class="dropup-center dropup options-button">
+                                <button class="btn dropdown-toggle-table dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="bi bi-three-dots-vertical options-table-button"></i>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="#">Sort ASC</a></li>
+                                    <li><a class="dropdown-item" href="#">Sort DSC</a></li>
+                                    <li><a class="dropdown-item" href="#">Hide Column</a></li>
+                                </ul>
+                            </div>
+                            
+                        </th>
+                        <th>
+                            Status
+                            <div class="dropup-center dropup options-button">
+                                <button class="btn dropdown-toggle-table dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="bi bi-three-dots-vertical options-table-button"></i>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="#">Sort ASC</a></li>
+                                    <li><a class="dropdown-item" href="#">Sort DSC</a></li>
+                                    <li><a class="dropdown-item" href="#">Hide Column</a></li>
+                                </ul>
+                            </div>
+                        </th>
+                        <th>
+                            Creation Date
+                            <div class="dropup-center dropup options-button">
+                                <button class="btn dropdown-toggle-table dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="bi bi-three-dots-vertical options-table-button"></i>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="#">Sort ASC</a></li>
+                                    <li><a class="dropdown-item" href="#">Sort DSC</a></li>
+                                    <li><a class="dropdown-item" href="#">Hide Column</a></li>
+                                </ul>
+                            </div>
+                        </th>
+                        <th>
+                            Last Update Date
+                            <div class="dropup-center dropup options-button">
+                                <button class="btn dropdown-toggle-table dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="bi bi-three-dots-vertical options-table-button"></i>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="#">Sort ASC</a></li>
+                                    <li><a class="dropdown-item" href="#">Sort DSC</a></li>
+                                    <li><a class="dropdown-item" href="#">Hide Column</a></li>
+                                </ul>
+                            </div>
+                        </th>
+                        <th>
+                            Action
+                            <div class="dropup-center dropup options-button" style="display:none;">
+                                <button class="btn dropdown-toggle-table dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="bi bi-three-dots-vertical options-table-button"></i>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="#">Sort ASC</a></li>
+                                    <li><a class="dropdown-item" href="#">Sort DSC</a></li>
+                                    <li><a class="dropdown-item" href="#">Hide Column</a></li>
+                                </ul>
+                            </div>
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -79,7 +147,7 @@
                         <tr class="fs-4">
                             <td>@category.CategoryName</td>
                             <td class="fw-bolder">
-                                <span class="badge badge-@(@category.IsDeleted ? "danger" : "success")">
+                                <span class="badge badge-light-@(@category.IsDeleted ? "danger" : "success") js-status">
                                     @(@category.IsDeleted ? "Deleted" : "Available")
                                 </span>          
                             </td>
@@ -137,15 +205,20 @@
 </div>
 
 @section Scripts{
-    <script src="lib/jquery/dist/jquery.min.js"></script>
     <script>
         $(document).ready(function(){
             $('.js-toggle-status').on('click', function(){
                 var btn = $(this)
-            
-            $.post({
-                    url: '/Categories/ToggleStatus/' + btn.data('statusid')
-            });
+
+                $.post(
+                    {
+                        url: '/Categories/ToggleStatus/' + btn.data('statusid'),
+                        success: function(){
+                            var status = btn.parent('tr').find('.js-status');
+                            var newStatus = status.text() === 'Deleted' ? 'Avaliable' : 'Deleted';
+                            status.text(newStatus).toggleClass('badge-light-success badge-light-danger');
+                        }
+                    });
             });
         });
     </script>

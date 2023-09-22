@@ -8,9 +8,9 @@ html {
     font-weight: 500;
 }
 
-    .menu-title:hover {
-        opacity: 0.8;
-    }
+.menu-title:hover {
+    opacity: 0.8;
+}
 
 .btn-primary {
     font-size: 14px;
@@ -20,7 +20,7 @@ html {
     background-color: #fff;
     border-radius: 12px;
     text-align: center;
-    height: 400px;
+    height: 650px;
     font-size: 17px;
     padding: 15px 15px 0px 15px;
 }
@@ -53,3 +53,22 @@ html {
     pointer-events: none;
     color: #aaa;
 }
+
+.dropup .dropdown-toggle-table::after {
+    display: none;
+}
+
+.options-button {
+    font-size: 14px;
+    width: 3px;
+    display: contents;
+}
+
+.actions-row {
+    display: flex;
+    width: 100%;
+}
+
+    .actions-row th .form-control {
+        border: 1px solid #ddd;
+    }

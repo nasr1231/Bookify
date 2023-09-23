@@ -78,13 +78,14 @@ namespace Bookify.Controllers
         public IActionResult ToggleStatus(int id)
         {
             var category = _context.categories.Find(id);
+
             if (category is null)
                 return NotFound();
 
             category.IsDeleted = !category.IsDeleted;
             category.LastUpdatedOn = DateTime.Now;
             _context.SaveChanges();
-            return Ok(category.LastUpdatedOn.ToString());
+            return Ok(  );
         }
     }
 }

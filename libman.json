@@ -17,6 +17,14 @@
         "css/bootstrap.css.map",
         "css/bootstrap.css"
       ]
+    },
+    {
+      "library": "bootbox.js@6.0.0",
+      "destination": "wwwroot/lib/bootbox.js/"
+    },
+    {
+      "library": "animate.css@4.1.1",
+      "destination": "wwwroot/lib/animate.css/"
     }
   ]
 }

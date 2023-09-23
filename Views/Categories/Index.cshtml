@@ -71,8 +71,7 @@
             </div>
             <table class="table category-table table-row-dashed table-row-gray-300 gy-7">
                 <thead>
-                    <tr class="fw-bold fs-3 text-gray-800">
-                       
+                    <tr class="fw-bold fs-3 text-gray-800">                       
                         <th>
                             Category Name                         
                             <div class="dropup-center dropup options-button">
@@ -207,24 +206,43 @@
 @Html.AntiForgeryToken()
 
 @section Scripts{
-    <script>
-        $(document).ready(function(){
-            $('.js-toggle-status').on('click', function(){
-                var btn = $(this)
-                $.post(
-                    {
-                        url: '/Categories/ToggleStatus/' + btn.data('id'),
-                        data: { 
-                            '__RequestVerificationToken': $('input[name="__RequestVerificationToken"]').val() 
+        <script>
+            $(document).ready(function(){
+                $('.js-toggle-status').on('click', function(){
+                    var btn = $(this)
+                    bootbox.confirm({
+                        message: 'Are You Sure You Want To Toggle This Item Status?',
+                        buttons: {
+                            confirm: {
+                                label: 'Confirm',
+                                className: 'btn-danger'
+                            },
+                            cancel: {
+                                label: 'No',
+                                className: 'btn-secondary'
+                            }
                         },
-                        success: function(){
-                            var status = btn.parent('tr').find('.js-status');
-                            var newStatus = status.text().trim() === 'Deleted' ? 'Avaliable' : 'Deleted';
-                            status.text(newStatus).toggleClass('badge-light-success badge-light-danger');
+                        callback: function (result) {
+                            if(result){
+                                $.post(
+                                    {
+                                        url: '/Categories/ToggleStatus/' + btn.data('id'),
+                                        data: {
+                                            '__RequestVerificationToken': $('input[name="__RequestVerificationToken"]').val()
+                                        },
+
+                                        success: function () {
+                                            var row = btn.parent('tr');
+                                            var status = row.find('.js-status');
+                                            var newStatus = status.text() === "Deleted" ? 'Available' : 'Deleted';
+                                            status.text(newStatus).toggleClass('badge-light-success badge-light-danger');
+                                            row.addClass('animate__animated animate__shakeX');
+                                        }
+                                    });
+                            }
                         }
+                    });                
                 });
             });
-        });
-    </script>
-
+        </script>
 }

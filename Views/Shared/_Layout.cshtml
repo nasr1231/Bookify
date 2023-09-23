@@ -5,9 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Bookify</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700" />
-    <link rel="stylesheet" type="text/css" href="assets/css/plugins.bundle.css" />
-    <link rel="stylesheet" type="text/css" href="assets/css/style.bundle.css"   />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+	<link rel="stylesheet" type="text/css" href="~/assets/css/plugins.bundle.css" crossorigin="anonymous" />
+	<link rel="stylesheet" type="text/css" href="~/assets/css/style.bundle.css" crossorigin="anonymous" />
+	<link rel="stylesheet" type="text/css" href="~/lib/animate.css/animate.min.css" crossorigin="anonymous" />
+	<link rel="stylesheet" type="text/css" href="~/lib/animate.css/animate.css" crossorigin="anonymous" />
+	<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" crossorigin="anonymous" />
     <link rel="stylesheet" href="~/Bookify.styles.css" asp-append-version="true" />
 </head>
 <body id="kt_body" class="header-fixed header-tablet-and-mobile-fixed">
@@ -48,10 +50,13 @@
 			<!--end::Svg Icon-->
 		</div>
 		<!--end::Scrolltop-->
-	</div>  
-    <script src="assets/js/plugins.bundle.js"></script>
-    <script src="assets/js/scripts.bundle.js"></script>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+	</div>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js" async></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+	<script src="~/lib/jquery/dist/jquery.min.js" async></script>
+    <script src="~/assets/js/plugins.bundle.js"></script>
+    <script src="~/assets/js/scripts.bundle.js"></script>    
+    <script src="~/lib/bootbox.js/bootbox.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>

@@ -77,6 +77,7 @@ namespace Bookify.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult ToggleStatus(int id)
         {
+            return NotFound();
             var category = _context.categories.Find(id);
 
             if (category is null)
@@ -85,7 +86,7 @@ namespace Bookify.Controllers
             category.IsDeleted = !category.IsDeleted;
             category.LastUpdatedOn = DateTime.Now;
             _context.SaveChanges();
-            return Ok(  );
+            return Ok();
         }
     }
 }

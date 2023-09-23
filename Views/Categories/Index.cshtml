@@ -238,10 +238,43 @@
                                     row.find('.js-updated-on').html(lastUpdatedOn);
                                     row.addClass('animate__animated animate__shakeX');
 
-                                    showSuccessMessage();
+                                    Swal.fire({
+                                        position: 'center-center',
+                                        icon: 'success',
+                                        title: 'Updated Successfully!',
+                                        showConfirmButton: false,
+                                        timer: 1500
+                                    })
+
+                                    toastr.options = {
+                                        "closeButton": true,
+                                        "debug": false,
+                                        "newestOnTop": true,
+                                        "progressBar": false,
+                                        "positionClass": "toastr-bottom-right",
+                                        "preventDuplicates": true,
+                                        "onclick": null,
+                                        "showDuration": "300",
+                                        "hideDuration": "1000",
+                                        "timeOut": "3000",
+                                        "extendedTimeOut": "1000",
+                                        "showEasing": "swing",
+                                        "hideEasing": "linear",
+                                        "showMethod": "fadeIn",
+                                        "hideMethod": "fadeOut"
+                                    };
+
+                                    toastr.success("Updated Successfully!");
                                 },
                                 error: function () {
-                                    showErrorMessage();
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'Oops...',
+                                        text: 'Something went wrong!',
+                                        customClass: {
+                                            confirmButton: "btn btn-primary"
+                                        }
+                                    })
                                 }
                             });
                         }

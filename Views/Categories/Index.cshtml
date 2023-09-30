@@ -47,7 +47,7 @@
                 <input type="text" data-kt-docs-table-filter="search" class="form-control form-control-solid w-250px ps-15" placeholder="Search Customers" />
             </div>
             <!--end::Search-->
-            <a class="btn btn-sm btn-light btn-primary fs-4 fw-bolder " asp-controller="Categories" asp-action="Add">
+            <a href="javascript:;" class="btn btn-sm btn-light btn-primary fs-4 fw-bolder js-render-modal" data-title="Add Category" data-url="/Categories/Add">
                 <i class="bi bi-plus-square-dotted"></i>
                 Add Category
             </a>
@@ -154,6 +154,7 @@
 @Html.AntiForgeryToken()
 
 @section Scripts{
+    <partial name="_ValidationScriptsPartial" />
     <script>
         $(document).ready(function () {
             $('body').delegate('.js-toggle-status', 'click', function () {
@@ -184,16 +185,7 @@
                                     var newStatus = status.text().trim() === 'Deleted' ? 'Available' : 'Deleted';
                                     status.text(newStatus).toggleClass('badge-light-success badge-light-danger');
                                     row.find('.js-updated-on').html(lastUpdatedOn);
-                                    row.addClass('animate__animated animate__shakeX');
-
-                                    Swal.fire({
-                                        position: 'center-center',
-                                        icon: 'success',
-                                        title: 'Updated Successfully!',
-                                        showConfirmButton: false,
-                                        timer: 1500
-                                    })
-
+                                    row.addClass('animate__animated animate__shakeX');                                  
                                     toastr.options = {
                                         "closeButton": true,
                                         "debug": false,
@@ -213,16 +205,10 @@
                                     };
 
                                     toastr.success("Updated Successfully!");
+                                    ShowSuccessMessage();
                                 },
                                 error: function () {
-                                    Swal.fire({
-                                        icon: 'error',
-                                        title: 'Oops...',
-                                        text: 'Something went wrong!',
-                                        customClass: {
-                                            confirmButton: "btn btn-primary"
-                                        }
-                                    })
+                                    ShowErrorMessage();
                                 }
                             });
                         }

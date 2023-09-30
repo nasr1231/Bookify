@@ -21,7 +21,7 @@ namespace Bookify.Controllers
         [HttpGet]
         public IActionResult Add()
         {
-            return View("Form");
+            return PartialView("_Form");
         }
 
         [HttpPost]
@@ -29,11 +29,13 @@ namespace Bookify.Controllers
         public IActionResult Add(CategoryFormViewModel model)
         {
             if (!ModelState.IsValid)
-                return View("Form",model);
+                return View("_Form",model);
 
             var category = new Category {CategoryName = model.CategoryName};
             _context.Add(category);
             _context.SaveChanges();
+
+            TempData["Message"] = "Saved Successfully!";
             return RedirectToAction(nameof(Index));
         }
         
@@ -51,7 +53,7 @@ namespace Bookify.Controllers
                 CategoryName = category.CategoryName,
                 
             };
-            return View("Form", model);
+            return View("_Form", model);
         }
 
         [HttpPost]
@@ -59,7 +61,7 @@ namespace Bookify.Controllers
         public IActionResult Edit(CategoryFormViewModel model)
         {
             if (!ModelState.IsValid)
-                return View("Form", model);
+                return View("_Form", model);
 
             var category = _context.categories.Find(model.CategoryId);
 
@@ -70,14 +72,15 @@ namespace Bookify.Controllers
             category.LastUpdatedOn = DateTime.Now;
 
             _context.SaveChanges();
+
+            TempData["Message"] = "Saved Successfully!";
             return RedirectToAction(nameof(Index));
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult ToggleStatus(int id)
-        {
-            return NotFound();
+        {             
             var category = _context.categories.Find(id);
 
             if (category is null)

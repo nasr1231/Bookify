@@ -29,14 +29,12 @@ namespace Bookify.Controllers
         public IActionResult Add(CategoryFormViewModel model)
         {
             if (!ModelState.IsValid)
-                return View("_Form",model);
+                return BadRequest();
 
             var category = new Category {CategoryName = model.CategoryName};
             _context.Add(category);
-            _context.SaveChanges();
-
-            TempData["Message"] = "Saved Successfully!";
-            return RedirectToAction(nameof(Index));
+            _context.SaveChanges();               
+            return PartialView("_CategoryRow", category);
         }
         
         [HttpGet]

@@ -21,6 +21,12 @@ function ShowErrorMessage(message = 'Saved Successfully!') {
     })
 }
 
+function OnModalSuccess(item, message) {
+    ShowSuccessMessage(message);
+    $('#modal').modal('hide');
+    $('tbody').append(item);
+}
+
 //Bootstrap Modal
 $(document).ready(function () {
 
@@ -37,19 +43,21 @@ $(document).ready(function () {
 
     $('.js-render-modal').on('click', function () {
         var btn = $(this);
-        var model = $('#modal');
-        model.find('#modalLabel').text(btn.data('title'));
+        var ShowModel = $('#modal');
+        ShowModel.find('#modalLabel').text(btn.data('title'));
 
-        $.get({
+        $.get({ 
             url: btn.data('url'),
             success: function (form) {
-                model.find('.modal-body').html(form);
+                ShowModel.find('.modal-body').html(form);
+                
             },
             error: function () {
-                showErrorMessage();
+                ShowErrorMessage();
             }
+
         });
 
-        model.modal('show');
+        $('#modal').modal('show');
     });
 });

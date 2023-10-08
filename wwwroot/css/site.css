@@ -21,8 +21,8 @@ html {
     border-radius: 12px;
     text-align: center;
     height: 480px;
-    font-size: 17px;
-    padding: 15px 15px 0px 15px;
+    padding: 5px 15px 0px 15px;
+    text-align: start;
 }
 
 .card-footer {

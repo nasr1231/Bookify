@@ -43,7 +43,7 @@ namespace Bookify.Controllers
             var category = _context.categories.Find(EditId);
 
             if (category is null)
-                return NotFound();
+                return BadRequest();
 
             var model = new CategoryFormViewModel
             {
@@ -51,7 +51,7 @@ namespace Bookify.Controllers
                 CategoryName = category.CategoryName,
                 
             };
-            return View("_Form", model);
+            return PartialView("_Form", model);
         }
 
         [HttpPost]

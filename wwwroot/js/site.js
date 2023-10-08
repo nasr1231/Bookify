@@ -21,9 +21,9 @@ function ShowErrorMessage(message = 'Saved Successfully!') {
     })
 }
 
-function OnModalSuccess(item, message) {
-    ShowSuccessMessage(message);
-    $('#modal').modal('hide');
+function OnModalSuccess(item) {
+    ShowSuccessMessage();
+    $('#model-window').modal('hide');
     $('tbody').append(item);
 }
 
@@ -43,14 +43,14 @@ $(document).ready(function () {
 
     $('.js-render-modal').on('click', function () {
         var btn = $(this);
-        var ShowModel = $('#modal');
+        var ShowModel = $('#model-window');
         ShowModel.find('#modalLabel').text(btn.data('title'));
 
         $.get({ 
             url: btn.data('url'),
             success: function (form) {
-                ShowModel.find('.modal-body').html(form);
-                
+                ShowModel.find('.modal-body').html(form);               
+                $.validator.unobtrusive.parse(ShowModel);
             },
             error: function () {
                 ShowErrorMessage();
@@ -58,6 +58,6 @@ $(document).ready(function () {
 
         });
 
-        $('#modal').modal('show');
+        $('#model-window').modal('show');
     });
 });

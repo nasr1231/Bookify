@@ -3,6 +3,10 @@
 @{
     ViewData["Title"] = "Category";
 }
+
+@section Styles{
+    <link href="~/assets/plugins/datatables/datatables.bundle.css" rel="stylesheet" />
+}
 <!--Category Header-->
 <div class="card shadow-sm category-header shadow">
     <div class="card-header">        
@@ -61,8 +65,8 @@
     else
     {
         <div class="table-responsive shadow">
-            <table class="table category-table table-row-dashed table-row-gray-300 gy-7">
-                <thead>
+            <table class="table category-table table-row-dashed table-row-gray-300 gy-7 justify-content-center">
+                <thead class="align-items-center">
                     <tr class="fw-bold fs-4 text-gray-800">
                         <th>Category Name</th>
                         <th>Status</th>
@@ -84,10 +88,16 @@
 
 @Html.AntiForgeryToken()
 
+@section Plugins{
+    <script src="~/assets/plugins/datatables/datatables.bundle.js"></script>
+    <script src="~/assets/plugins/datatables/vfs_fonts.js"></script>
+}
+
 @section Scripts{
     <partial name="_ValidationScriptsPartial" />
     <script>
         $(document).ready(function () {
+            $('table').DataTable();
             $('body').delegate('.js-toggle-status', 'click', function () {
                 var btn = $(this);
 
@@ -116,7 +126,8 @@
                                     var newStatus = status.text().trim() === 'Deleted' ? 'Available' : 'Deleted';
                                     status.text(newStatus).toggleClass('badge-light-success badge-light-danger');
                                     row.find('.js-updated-on').html(lastUpdatedOn);
-                                    row.addClass('animate__animated animate__shakeX');                                  
+                                    row.addClass('animate__animated animate__shakeX');
+                                    //ShowSuccessMessage();
                                     toastr.options = {
                                         "closeButton": true,
                                         "debug": false,
@@ -136,7 +147,7 @@
                                     };
 
                                     toastr.success("Updated Successfully!");
-                                    ShowSuccessMessage();
+                                    
                                 },
                                 error: function () {
                                     ShowErrorMessage();

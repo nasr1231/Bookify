@@ -8,11 +8,10 @@
 	<link rel="stylesheet" type="text/css" href="~/assets/css/plugins.bundle.css" crossorigin="anonymous" />
 	<link rel="stylesheet" type="text/css" href="~/assets/css/style.bundle.css" crossorigin="anonymous" />
 	<link rel="stylesheet" type="text/css" href="~/lib/animate.css/animate.min.css" crossorigin="anonymous" />
-    <link rel="stylesheet" type="text/css" href="~/lib/animate.css/animate.css" crossorigin="anonymous" />
     <link href="~/lib/sweetalert2/dist/sweetalert2.css" rel="stylesheet" />
-	@await RenderSectionAsync("Styles", required: false)
-	<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" crossorigin="anonymous" />
+	@await RenderSectionAsync("Styles", required: false)	
     <link rel="stylesheet" href="~/Bookify.styles.css" asp-append-version="true" />
+	<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" crossorigin="anonymous" />
 </head>
 <body id="kt_body" class="header-fixed header-tablet-and-mobile-fixed">
 	<!--begin::Theme mode setup on page load-->
@@ -57,12 +56,9 @@
 	<partial name="_Modal" />
     <script src="~/lib/jquery/dist/jquery.min.js"></script>	
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js" async></script>
-    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>	
-	<script src="~/lib/bootstrap/js/bootstrap.min.js"></script>
-	<script src="~/lib/bootstrap/js/bootstrap.bundle.js"></script>
 	<script src="~/assets/js/plugins.bundle.js"></script>
     <script src="~/assets/js/scripts.bundle.js"></script>    
-    <script src="~/lib/bootbox.js/bootbox.js"></script>	   
+    <script src="~/lib/bootbox.js/bootbox.js"></script>
 	<script src="~/lib/sweetalert2/dist/sweetalert2.all.js"></script>
 	@await RenderSectionAsync("Plugins", required: false)
     <script src="~/js/site.js" asp-append-version="true"></script>

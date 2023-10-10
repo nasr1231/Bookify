@@ -64,3 +64,11 @@ html {
     width: 3px;
     display: contents;
 }
+
+.table-tools-card{
+    height: 72px;
+}
+
+.export-btn {
+    margin: 0px 25px 0px 0px;
+}

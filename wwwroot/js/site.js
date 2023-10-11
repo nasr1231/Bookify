@@ -1,24 +1,24 @@
 ﻿// Messages
-function ShowSuccessMessage(message = 'Saved Successfully!'){
+function ShowSuccessMessage(message = 'Updated Successfully!') {
     Swal.fire({
         position: 'center-center',
         icon: 'success',
         title: 'Success',
-        text: 'Updated Successfully!',
+        text: message, // Use the parameter message here
         showConfirmButton: false,
         timer: 2500
     });
-
 }
-function ShowErrorMessage(message = 'Saved Successfully!') {
+
+function ShowErrorMessage(message = 'Something went wrong!') {
     Swal.fire({
         icon: 'error',
         title: 'Oops...',
-        text: 'Something went wrong!',
+        text: message, // Use the parameter message here
         customClass: {
             confirmButton: "btn btn-primary"
         }
-    })
+    });
 }
 
 function OnModalSuccess(item) {
@@ -27,7 +27,7 @@ function OnModalSuccess(item) {
     $('tbody').append(item);
 }
 
-//Bootstrap Modal
+// Bootstrap Modal
 $(document).ready(function () {
 
     var message = $('#Message').text();
@@ -37,7 +37,6 @@ $(document).ready(function () {
 
     $('.js-save-btn').on('click', function () {
         var btn = $(this);
-        success:
         ShowSuccessMessage();
     });
 
@@ -46,16 +45,15 @@ $(document).ready(function () {
         var ShowModel = $('#model-window');
         ShowModel.find('#modalLabel').text(btn.data('title'));
 
-        $.get({ 
+        $.get({
             url: btn.data('url'),
             success: function (form) {
-                ShowModel.find('.modal-body').html(form);               
+                ShowModel.find('.modal-body').html(form);
                 $.validator.unobtrusive.parse(ShowModel);
             },
             error: function () {
                 ShowErrorMessage();
             }
-
         });
 
         $('#model-window').modal('show');

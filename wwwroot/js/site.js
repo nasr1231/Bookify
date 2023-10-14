@@ -25,6 +25,8 @@ function OnModalSuccess(item) {
     ShowSuccessMessage();
     $('#model-window').modal('hide');
     $('tbody').append(item);
+    KTMenu.init();
+    KTMenu.initHandlers();
 }
 
 // Bootstrap Modal
@@ -36,7 +38,7 @@ $(document).ready(function () {
     }
 
     $('.js-save-btn').on('click', function () {
-        var btn = $(this);
+        //var btn = $(this);
         ShowSuccessMessage();
     });
 

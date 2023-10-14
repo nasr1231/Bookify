@@ -10,7 +10,7 @@
 					<!--begin:Menu item-->
 					<div class="menu-item">
 						<!--begin:Home link-->
-					<a class="menu-link bg-light" asp-controller="Home" asp-action="Index">
+					<a class="menu-link" asp-controller="Home" asp-action="Index" active-when="Home">
 							<span class="menu-icon">
 								<span class="svg-icon svg-icon-2">
 									<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -22,7 +22,7 @@
 						</a>
 						<!--end:Home link-->
 						<!--begin:Category link-->
-						<a class="menu-link active" asp-controller="Categories" asp-action="Index">
+					<a class="menu-link" asp-controller="Categories" asp-action="Index" active-when="Categories">
 						<span class="menu-icon">
 							<span class="svg-icon svg-icon-2">
 								<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

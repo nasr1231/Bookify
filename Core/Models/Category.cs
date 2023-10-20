@@ -2,6 +2,7 @@
 
 namespace Bookify.Core.Models
 {
+    [Index(nameof(CategoryName), IsUnique = true)]
     public class Category
     {
         [Key]

@@ -95,5 +95,11 @@ namespace Bookify.Controllers
             _context.SaveChanges();
             return Ok();
         }
+
+        public IActionResult UniqueItems(CategoryFormViewModel model)
+        {
+            var IsExisted = _context.categories.Any(c => c.CategoryName == model.CategoryName);
+            return Json(!IsExisted);
+        }
     }
 }

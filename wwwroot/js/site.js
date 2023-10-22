@@ -3,6 +3,10 @@ var table;
 var datatable;
 var exported_Columns = [];
 
+function OnModalBegin() {
+    $('.body :submit').attr('disabled', 'disabled').attr('data-kt-indicator', 'on');
+}
+
 // Messages
 function ShowSuccessMessage(message = 'Updated Successfully!') {
     Swal.fire({
@@ -24,6 +28,10 @@ function ShowErrorMessage(message = 'Something went wrong!') {
             confirmButton: "btn btn-primary"
         }
     });
+}
+
+function OnModalComplete() {
+    $('.body :submit').removeAttr('disabled').removeAttr('data-kt-indicator');
 }
 
 function OnModalSuccess(row) {

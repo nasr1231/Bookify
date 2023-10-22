@@ -1,7 +1,5 @@
-﻿using Bookify.Core.Models;
-using Bookify.Filters;
+﻿using Bookify.Filters;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 
 namespace Bookify.Controllers
@@ -17,7 +15,17 @@ namespace Bookify.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            var categories = _context.categories.AsNoTracking().ToList();
+            var categories = _context.categories.
+                Select(c => new CategoryViewModel
+                {
+                    CategoryId = c.CategoryId,
+                    CategoryName = c.CategoryName,
+                    IsDeleted = c.IsDeleted,
+                    CreatedOn = c.CreatedOn,
+                    LastUpdatedOn = c.LastUpdatedOn,    
+                })
+                .AsNoTracking()
+                .ToList();
             return View(categories);
         }
         [HttpGet]
@@ -34,15 +42,25 @@ namespace Bookify.Controllers
             if (!ModelState.IsValid)
                 return BadRequest();
 
-            var category = new Category {CategoryName = model.CategoryName};
+            var category = new Category { CategoryName = model.CategoryName };
             _context.Add(category);
-            _context.SaveChanges();               
-            return PartialView("_CategoryRow", category);
+            _context.SaveChanges();
+
+            var viewModel = new CategoryViewModel
+            {
+                CategoryId = category.CategoryId,
+                CategoryName = category.CategoryName,
+                IsDeleted = category.IsDeleted,
+                CreatedOn = category.CreatedOn,
+                LastUpdatedOn = category.LastUpdatedOn,
+            };
+    
+            return PartialView("_CategoryRow", viewModel);
         }
-        
+
         [HttpGet]
-		[AjaxOnly]
-		public IActionResult Edit(int EditId)
+        [AjaxOnly]
+        public IActionResult Edit(int EditId)
         {
             var category = _context.categories.Find(EditId);
 
@@ -53,19 +71,19 @@ namespace Bookify.Controllers
             {
                 CategoryId = EditId,
                 CategoryName = category.CategoryName,
-                
+
             };
             return PartialView("_Form", model);
-		}
+        }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Edit(CategoryFormViewModel model)
         {
             if (!ModelState.IsValid)
-				return BadRequest();
+                return BadRequest();
 
-			var category = _context.categories.Find(model.CategoryId);
+            var category = _context.categories.Find(model.CategoryId);
 
             if (category is null)
                 return NotFound();
@@ -75,16 +93,23 @@ namespace Bookify.Controllers
 
             _context.SaveChanges();
 
-            TempData["Message"] = "Saved Successfully!";
+            var viewModel = new CategoryViewModel
+            {
+                CategoryId = category.CategoryId,
+                CategoryName = category.CategoryName,
+                IsDeleted = category.IsDeleted,
+                CreatedOn = category.CreatedOn,
+                LastUpdatedOn = category.LastUpdatedOn,
+            };
 
-            return PartialView("_CategoryRow", category);
-			
-		}
+            return PartialView("_CategoryRow", viewModel);
+
+        }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult ToggleStatus(int id)
-        {             
+        {
             var category = _context.categories.Find(id);
 
             if (category is null)

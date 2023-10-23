@@ -1,6 +1,8 @@
+using Bookify.Core.Mapping;
 using Bookify.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 
 namespace Bookify
 {
@@ -19,6 +21,7 @@ namespace Bookify
             builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             builder.Services.AddControllersWithViews();
+            builder.Services.AddAutoMapper(Assembly.GetAssembly(typeof(MappingProfile)));
 
             var app = builder.Build();
 

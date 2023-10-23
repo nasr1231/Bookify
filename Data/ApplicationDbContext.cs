@@ -6,7 +6,7 @@ namespace Bookify.Data
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
-        {}
+        { }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -19,6 +19,6 @@ namespace Bookify.Data
                 .IsRequired(false);
         }
         public DbSet<Category> categories { get; set; }
-
+        public DbSet<Author> authors { get; set; }
     }
 }

@@ -1,12 +1,9 @@
-﻿using Bookify.Filters;
-using Microsoft.AspNetCore.Mvc;
-
-
-namespace Bookify.Controllers
+﻿namespace Bookify.Controllers
 {
     public class CategoriesController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IMapper _mapping;
 
         public CategoriesController(ApplicationDbContext context)
         {

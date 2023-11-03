@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics.CodeAnalysis;
-
-namespace Bookify.Core.View_Models
+﻿namespace Bookify.Core.View_Models
 {
     public class CategoryFormViewModel
     {

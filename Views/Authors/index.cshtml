@@ -23,7 +23,7 @@
             Authors
         </h3>
         <div class="card-toolbar">
-            <a href="javascript:;" class="btn btn-sm btn-light btn-primary fs-4 fw-bolder js-render-modal" data-title="Add Author" data-url="/Authors/Add">
+            <a href="javascript:;" class="btn btn-sm btn-light btn-primary fs-4 fw-bolder js-render-modal" data-title="Add Author" data-url="/Authors/Create">
                 <i class="bi bi-plus-square-dotted"></i>
                 Add Author
             </a>
@@ -83,7 +83,7 @@
                 <div id="kt_datatable_example_buttons" class="d-none"></div>
             </div>
         </div>
-        <table class="table table-row-dashed table-row-gray-300 gy-7 js-datatables" data-doc-title="Categories">
+        <table class="table table-row-dashed table-row-gray-300 gy-7 js-datatables" data-doc-title="Authors">
             <thead>
                 <tr class="fw-bold fs-6 text-gray-800">
                     <th>Name</th>
@@ -93,14 +93,24 @@
                     <th class="js-no-export">Action</th>
                 </tr>
             </thead>
-            <tbody>                
-                
-                @*@foreach (var author in Modal)
+            <tbody>
+
+                @foreach (var author in Model)
                 {
                 <partial name="_AuthorRow" model="@author" />
-                }*@
-                             
+                }
+
             </tbody>
         </table>
     </div>
 </div>
+
+@section Plugins{
+    <script src="~/assets/plugins/datatables/datatables.bundle.js"></script>
+    <script src="~/assets/plugins/datatables/vfs_fonts.js"></script>
+}
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+    <script src="~/js/author.js" asp-append-version="true"></script>
+}

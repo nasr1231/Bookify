@@ -139,6 +139,29 @@ var KTDatatables = function () {
     };
 }();
 
+
+function OnModalToaster() {
+    toastr.options = {
+        "closeButton": true,
+        "debug": false,
+        "newestOnTop": true,
+        "progressBar": false,
+        "positionClass": "toastr-bottom-right",
+        "preventDuplicates": true,
+        "onclick": null,
+        "showDuration": "300",
+        "hideDuration": "1000",
+        "timeOut": "3000",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+    };
+
+    toastr.success("Updated Successfully!");
+}
+
 // Bootstrap Modal
 $(document).ready(function () {
     // Sweet Alert

@@ -57,16 +57,16 @@
 
         [HttpGet]
         [AjaxOnly]
-        public IActionResult Edit(int EditId)
+        public IActionResult Edit(int id)
         {
-            var category = _context.categories.Find(EditId);
+            var category = _context.categories.Find(id);
 
             if (category is null)
                 return NotFound();
 
             var model = new CategoryFormViewModel
             {
-                CategoryId = EditId,
+                CategoryId = id,
                 CategoryName = category.CategoryName,
 
             };

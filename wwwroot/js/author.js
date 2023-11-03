@@ -17,7 +17,7 @@
             callback: function (result) {
                 if (result) {
                     $.post({
-                        url: '/Categories/ToggleStatus/' + btn.data('id'),
+                        url: '/Authors/ToggleStatus/'+ btn.data('id'),
                         data: {
                             '__RequestVerificationToken': $('input[name="__RequestVerificationToken"]').val()
                         },
@@ -30,7 +30,6 @@
                             row.addClass('animate__animated animate__shakeX');
                             //ShowSuccessMessage();
                             OnModalToaster();
-
                         },
                         error: function () {
                             ShowErrorMessage();

@@ -79,5 +79,8 @@ html {
     align-items: stretch;
     flex-wrap: wrap;
     align-items:center;
+}
 
+.col-action-btn {
+    padding:15px 0px;
 }

@@ -17,8 +17,13 @@ namespace Bookify.Data
             modelBuilder.Entity<Category>()
                 .Property(m => m.LastUpdatedOn)
                 .IsRequired(false);
+            modelBuilder.Entity<BookCategory>().HasKey(e => new { e.CategoryId, e.BookId });
         }
-        public DbSet<Category> categories { get; set; }
         public DbSet<Author> authors { get; set; }
+        public DbSet<Book> Books { get; set; }
+        public DbSet<BookCategory> BookCategories { get; set; }
+        public DbSet<Category> categories { get; set; }
+
+        
     }
 }

@@ -1,5 +1,6 @@
 ﻿//Variables Definition
 var table;
+var UpdatedRow;
 var datatable;
 var exported_Columns = [];
 
@@ -37,7 +38,11 @@ function OnModalComplete() {
 function OnModalSuccess(row) {
     ShowSuccessMessage();
     $('#model-window').modal('hide');
-    $('tbody').append(row);
+
+    if (UpdatedRow !== undefined) {
+        datatable.row(UpdatedRow).remove().draw();
+        UpdatedRow = undefined;
+    }
 
     var newRow = $(row);
     datatable.row.add(newRow).draw();
@@ -179,10 +184,14 @@ $(document).ready(function () {
         ShowSuccessMessage();
     });
 
-    $('.js-render-modal').on('click', function () {
+    $('body').delegate('.js-render-modal', 'click', function () {
         var btn = $(this);
         var ShowModel = $('#model-window');
         ShowModel.find('#modalLabel').text(btn.data('title'));
+
+        if (btn.data('update') !== undefined) {
+            UpdatedRow = btn.parents('tr');
+        }
 
         $.get({
             url: btn.data('url'),

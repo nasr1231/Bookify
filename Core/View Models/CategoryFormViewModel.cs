@@ -3,8 +3,8 @@
     public class CategoryFormViewModel
     {
         public int CategoryId { get; set; }
-        [MaxLength(60), Required]
-        [Remote("UniqueItems", null, ErrorMessage = "This Category is added before!!!")]
+        [MaxLength(60, ErrorMessage = UserErrors.MaxLength), Required, Display(Name = "Category")]
+        [Remote("UniqueItems", null, AdditionalFields = "CateogryId", ErrorMessage = UserErrors.Duplicated)]
         public string CategoryName { get; set; } = null!;
     }
 }

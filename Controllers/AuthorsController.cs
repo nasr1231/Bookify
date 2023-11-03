@@ -1,7 +1,4 @@
-﻿using Bookify.Core.Models;
-using Microsoft.AspNetCore.Mvc;
-
-namespace Bookify.Controllers
+﻿namespace Bookify.Controllers
 {
 
     public class AuthorsController : Controller
@@ -22,7 +19,7 @@ namespace Bookify.Controllers
                     Name = c.Name,
                     Nationality = c.Nationality,
                     IsDeleted = c.IsDeleted,
-                    brief = c.brief,
+                    Brief = c.Brief,
                     CreatedOn = c.CreatedOn,
                     LastUpdatedOn = c.LastUpdatedOn
                 }).
@@ -49,7 +46,7 @@ namespace Bookify.Controllers
             {
                 Name = model.Name,
                 Nationality = model.Nationality,
-                brief = model.brief,
+                Brief = model.Brief,
             };
             _context.Add(author);
             _context.SaveChanges();
@@ -59,7 +56,7 @@ namespace Bookify.Controllers
                 Id = author.Id,
                 Name = author.Name,
                 Nationality = author.Nationality,
-                brief = author.brief,
+                Brief = author.Brief,
             };
 
             return PartialView("_AuthorRow", viewModel);
@@ -77,16 +74,86 @@ namespace Bookify.Controllers
             {
                 Id = id,
                 Name = AuthorView.Name,
-                brief = AuthorView.brief,
+                Brief = AuthorView.Brief,
                 Nationality = AuthorView.Nationality,
             };
             return PartialView("_AuthorForm", model);
 
         }
-        public IActionResult UniqueItems(AuthorFormViewModel model)
+
+        [HttpGet]
+        [AjaxOnly]
+        public IActionResult Edit(int id)
         {
-            var IsExisted = _context.authors.Any(c => c.Name == model.Name);
-            return Json(!IsExisted);
+            var AuthorView = _context.authors.Find(id);
+            if (AuthorView is null)
+            {
+                return BadRequest();
+            }
+            var ViewModel = new AuthorFormViewModel
+            {
+                Id = id,
+                Name = AuthorView.Name,
+                Nationality = AuthorView.Nationality,
+                Brief = AuthorView.Brief,
+            };
+            return PartialView("_AuthorForm", ViewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(AuthorFormViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+            var item = _context.authors.Find(model.Id);
+
+            if (item is null)
+            {
+                return NotFound();
+            }
+
+            item.Name = model.Name;
+            item.Brief = model.Brief;
+            item.Nationality = model.Nationality;
+            item.LastUpdatedOn = DateTime.Now;
+
+            _context.SaveChanges();
+            var ViewModel = new AuthorViewModel
+            {
+                Id = item.Id,
+                Name = item.Name,
+                Nationality = item.Nationality,
+                LastUpdatedOn = item.LastUpdatedOn,
+                Brief = item.Brief,
+                IsDeleted = item.IsDeleted,
+                CreatedOn = item.CreatedOn
+            };
+
+            return PartialView("_AuthorRow", ViewModel);
+        }
+        [HttpPost]
+        [AjaxOnly]
+        public IActionResult ToggleStatus(int id)
+        {
+            var AuthorItem = _context.authors.Find(id);
+            if (AuthorItem is null)
+                return NotFound();
+
+            //Actions Will Be Done
+            AuthorItem.LastUpdatedOn = DateTime.Now;
+            AuthorItem.IsDeleted = !AuthorItem.IsDeleted;
+            _context.SaveChanges();
+
+            return Ok();
+        }
+        public IActionResult UniqueAuthors(AuthorFormViewModel model)
+        {
+            var author = _context.authors.FirstOrDefault(c => c.Name == model.Name);
+            var IsAllowed = author is null || author.Id.Equals(model.Id);
+            return Json(IsAllowed);
         }
     }
 }

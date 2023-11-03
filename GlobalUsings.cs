@@ -1,8 +1,9 @@
-﻿global using Microsoft.EntityFrameworkCore;
-global using Microsoft.AspNetCore.Mvc;
-global using System.ComponentModel.DataAnnotations;
+﻿global using AutoMapper;
+global using Bookify.Core.Consts;
 global using Bookify.Core.Models;
-global using Bookify.Data;
 global using Bookify.Core.View_Models;
-global using AutoMapper;
+global using Bookify.Data;
 global using Bookify.Filters;
+global using Microsoft.AspNetCore.Mvc;
+global using Microsoft.EntityFrameworkCore;
+global using System.ComponentModel.DataAnnotations;

@@ -3,12 +3,12 @@
     public class CategoriesController : Controller
     {
         private readonly ApplicationDbContext _context;
-        private readonly IMapper _mapping;
 
         public CategoriesController(ApplicationDbContext context)
         {
             _context = context;
         }
+
         [HttpGet]
         public IActionResult Index()
         {
@@ -19,7 +19,7 @@
                     CategoryName = c.CategoryName,
                     IsDeleted = c.IsDeleted,
                     CreatedOn = c.CreatedOn,
-                    LastUpdatedOn = c.LastUpdatedOn,    
+                    LastUpdatedOn = c.LastUpdatedOn,
                 })
                 .AsNoTracking()
                 .ToList();
@@ -51,7 +51,7 @@
                 CreatedOn = category.CreatedOn,
                 LastUpdatedOn = category.LastUpdatedOn,
             };
-    
+
             return PartialView("_CategoryRow", viewModel);
         }
 
@@ -120,8 +120,9 @@
 
         public IActionResult UniqueItems(CategoryFormViewModel model)
         {
-            var IsExisted = _context.categories.Any(c => c.CategoryName == model.CategoryName);
-            return Json(!IsExisted);
+            var category = _context.categories.SingleOrDefault(c => c.CategoryName == model.CategoryName);
+            var IsAllowed = category is null || category.CategoryName.Equals(model.CategoryId);
+            return Json(!IsAllowed);
         }
     }
 }

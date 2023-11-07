@@ -9,7 +9,8 @@
       data-ajax-begin="OnModalBegin"
       data-ajax-success="OnModalSuccess"
       data-ajax-failure="ShowErrorMessage"
-      data-ajax-complete="OnModalComplete">
+      data-ajax-complete="OnModalComplete"
+>
     @if (Model?.Id > 0)
     {
         <input type="hidden" asp-for="Id" />
@@ -19,18 +20,22 @@
         <input type="text" asp-for="Name" class="form-control form-control-solid" placeholder="Enter Author Name">
         <span asp-validation-for="Name" class="text-danger"></span>
     </div>
-    <div class="d-flex flex-column mb-8">
+    <div class="d-flex flex-column mb-8" id="container">
         <label class="d-flex align-items-center fs-6 fw-bold mb-2">
             <span class="required">Author Nationality</span>
         </label>
-        <select class="form-select" id="floatingSelect" asp-for="Nationality">
+        <select class="form-select" id="mySelect" asp-for="Nationality">
             <partial name="_NationalitiesList" />
         </select>
         <span asp-validation-for="Nationality" class="text-danger"></span>
     </div>
     <div class="d-flex flex-column mb-8">
         <label class="fs-6 fw-bold mb-2">Author Brief</label>
-        <textarea asp-for="Brief" class="form-control form-control-solid " placeholder="Enter Author Brief"></textarea>
+        <textarea asp-for="Brief" class="form-control form-control-solid" id="disabled-form" placeholder="Enter Author Brief"></textarea>
     </div>
     <partial name="_ModalFooter" />
 </form>
+
+@section Scripts{
+    <script src="~/js/author.js" asp-append-version="true"></script>
+}    

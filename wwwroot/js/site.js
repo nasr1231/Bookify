@@ -206,4 +206,10 @@ $(document).ready(function () {
 
         $('#model-window').modal('show');
     });
+    // Replacing Select Menu With Text Area
+    $('body').delegate('.previewButton', 'click', function () {
+        var btn = $(this);
+        var ShowModel = $('#model-window');
+        ShowModel.Find('#mySelect').Prop('disabled', true)
+    });
 });

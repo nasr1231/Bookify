@@ -1,4 +1,4 @@
-﻿$(document).ready(function () {
+﻿$(document).ready(function () {    
     $('body').delegate('.js-toggle-status', 'click', function () {
         var btn = $(this);
 

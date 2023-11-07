@@ -3,27 +3,22 @@
     public class CategoriesController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IMapper _mapper;
 
-        public CategoriesController(ApplicationDbContext context)
+        public CategoriesController(ApplicationDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
+
         }
 
         [HttpGet]
         public IActionResult Index()
         {
-            var categories = _context.categories.
-                Select(c => new CategoryViewModel
-                {
-                    CategoryId = c.CategoryId,
-                    CategoryName = c.CategoryName,
-                    IsDeleted = c.IsDeleted,
-                    CreatedOn = c.CreatedOn,
-                    LastUpdatedOn = c.LastUpdatedOn,
-                })
-                .AsNoTracking()
-                .ToList();
-            return View(categories);
+            var categories = _context.categories.AsNoTracking().ToList();
+            var viewModel = _mapper.Map<IEnumerable<CategoryViewModel>>(categories);
+            return View(viewModel);
+
         }
         [HttpGet]
         [AjaxOnly]
@@ -39,19 +34,12 @@
             if (!ModelState.IsValid)
                 return BadRequest();
 
-            var category = new Category { CategoryName = model.CategoryName };
+            var category = _mapper.Map<Category>(model);
+
             _context.Add(category);
             _context.SaveChanges();
 
-            var viewModel = new CategoryViewModel
-            {
-                CategoryId = category.CategoryId,
-                CategoryName = category.CategoryName,
-                IsDeleted = category.IsDeleted,
-                CreatedOn = category.CreatedOn,
-                LastUpdatedOn = category.LastUpdatedOn,
-            };
-
+            var viewModel = _mapper.Map<CategoryViewModel>(model);
             return PartialView("_CategoryRow", viewModel);
         }
 
@@ -64,12 +52,7 @@
             if (category is null)
                 return NotFound();
 
-            var model = new CategoryFormViewModel
-            {
-                CategoryId = id,
-                CategoryName = category.CategoryName,
-
-            };
+            var model = _mapper.Map<CategoryFormViewModel>(category);
             return PartialView("_Form", model);
         }
 
@@ -90,15 +73,7 @@
 
             _context.SaveChanges();
 
-            var viewModel = new CategoryViewModel
-            {
-                CategoryId = category.CategoryId,
-                CategoryName = category.CategoryName,
-                IsDeleted = category.IsDeleted,
-                CreatedOn = category.CreatedOn,
-                LastUpdatedOn = category.LastUpdatedOn,
-            };
-
+            var viewModel = _mapper.Map<CategoryViewModel>(category);
             return PartialView("_CategoryRow", viewModel);
 
         }
@@ -122,7 +97,7 @@
         {
             var category = _context.categories.SingleOrDefault(c => c.CategoryName == model.CategoryName);
             var IsAllowed = category is null || category.CategoryName.Equals(model.CategoryId);
-            return Json(!IsAllowed);
+            return Json(IsAllowed);
         }
     }
 }

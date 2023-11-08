@@ -84,3 +84,15 @@ html {
 .col-action-btn {
     padding:15px 0px;
 }
+
+.image-input-placeholder {
+    background-image: url('../assets/images/add-book-svgrepo-com.svg');
+}
+
+[data-bs-theme="dark"] .image-input-placeholder {
+    background-image: url('svg/avatars/blank-dark.svg');
+}
+
+.form-floating > .form-select {
+    padding-bottom: 0.225rem;
+}

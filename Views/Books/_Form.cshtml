@@ -1,0 +1,134 @@
+﻿@model BookFormViewModel
+
+@{
+    ViewData["Title"] = "Book Form";
+}
+
+<div class="card shadow-sm category-header shadow">
+    <div class="card-header">
+        <h3 class="card-title fw-bolder fs-1">
+            <div class="symbol symbol-35px me-3">
+                <div class="symbol-label fs-2 fw-semibold bg-light text-inverse-primary">
+                    <span class="svg-icon svg-icon-2x svg-icon-primary">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
+                            <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3Zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
+                        </svg>
+                    </span>
+                </div>
+            </div>
+            @(Model.Id.Equals(0) ? "Add" : "Edit") Books
+        </h3>
+    </div>
+</div>
+
+<div class="card-body flex-row">
+    <div class="table-responsive">
+        <form method="post" asp-controller="Books" enctype="multipart/form-data">
+            <div class="row">
+                <div class="col-md-4">
+                    <!--begin::Input group-->
+                    <div class="form-floating mb-5">
+                        <input type="file" class="form-control form-control-solid" placeholder="Insert Image" asp-for="ImageUrl" />
+                        <label asp-for="Title"></label>
+                    </div>
+                    <span asp-validation-for="ImageUrl" class="text-danger d-block"></span>
+                </div>
+            </div>                        
+            <div class="row">
+                <div class="col-md-4">
+                    <!--begin::Input group-->
+                    <div class="form-floating mb-5">
+                        <input type="text" class="form-control form-control-solid" placeholder="Title" asp-for="Title" />
+                        <label asp-for="Title"></label>
+                    </div>
+                    <span asp-validation-for="Title" class="text-danger d-block"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <!--begin::Input group-->
+                    <div class="form-floating mb-5">
+                        <input type="text" class="form-control form-control-solid" placeholder="Publisher" asp-for="Publisher" />
+                        <label asp-for="Publisher"></label>
+                    </div>
+                    <span asp-validation-for="Publisher" class="text-danger d-block"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-floating mb-5">
+                        <select class="form-select form-select-solid" placeholder="Title" asp-for="AuthorId" asp-items="@Model.Authors">
+                            <option value="">Choose An Author</option>
+                        </select>
+                        <label asp-for="AuthorId"></label>
+                    </div>
+                    <span asp-validation-for="AuthorId" class="text-danger d-block"></span>
+                </div>                
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="mb-5">
+                        <select class="form-select form-select-solid" placeholder="Title" asp-for="SelectedCategories" asp-items="@Model.Categories">
+                            <option value="">Choose Category</option>
+                        </select>
+                        <label asp-for="SelectedCategories"></label>
+                    </div>
+                    <span asp-validation-for="SelectedCategories" class="text-danger d-block"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 py-4">
+                    <div class="form-check form-check-custom form-check-success form-check-solid      mb-5">
+                        <input class="form-check-input" type="checkbox" id="flexCheckboxLg" />
+                        <label class="form-check-label" for="flexCheckboxLg" asp-for="IsAvaliableForRental">
+                            Is Available For Rent
+                        </label>
+                    </div>
+                    <span asp-validation-for="IsAvaliableForRental" class="text-danger d-block"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <!--begin::Input group-->
+                    <div class="form-floating mb-5">
+                        <input type="date" class="form-control form-control-solid" placeholder="Publishing Date" asp-for="PublishingDate" />
+                        <label asp-for="PublishingDate"></label>
+                    </div>
+                    <span asp-validation-for="PublishingDate" class="text-danger d-block"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <!--begin::Input group-->
+                    <div class="form-floating mb-5">
+                        <input type="text" class="form-control form-control-solid" placeholder="Hall" asp-for="Hall" />
+                        <label asp-for="Hall"></label>
+                    </div>
+                    <span asp-validation-for="Hall" class="text-danger d-block"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-floating mb-5">
+                        <label asp-for="Description" class="form-label"></label>
+                        <textarea asp-for="Description" class="form-control" data-kt-autosize="true" style="height:150px;"></textarea>
+                    </div>
+                    <span asp-validation-for="Description" class="text-danger d-block"></span>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary mb-5">
+                <span class="indicator-label">
+                    Save
+                </span>
+                <span class="indicator-progress">
+                    Please wait... <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                </span>
+            </button>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+}

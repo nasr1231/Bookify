@@ -4,29 +4,21 @@
     public class AuthorsController : Controller
     {
         public readonly ApplicationDbContext _context;
+        public readonly IMapper _mapper;
 
-        public AuthorsController(ApplicationDbContext context)
+        public AuthorsController(ApplicationDbContext context, IMapper mapper)
         {
-            _context = context;
+            _context = context;         
+            _mapper = mapper;
         }
         [HttpGet]
         public IActionResult Index()
         {
-            var author = _context.authors.
-                Select(c => new AuthorViewModel
-                {
-                    Id = c.Id,
-                    Name = c.Name,
-                    Nationality = c.Nationality,
-                    IsDeleted = c.IsDeleted,
-                    Brief = c.Brief,
-                    CreatedOn = c.CreatedOn,
-                    LastUpdatedOn = c.LastUpdatedOn
-                }).
-                AsNoTracking()
-                .ToList();
-            return View(author);
+            var author = _context.authors.AsNoTracking().ToList();
+            var viewModel = _mapper.Map<IEnumerable<AuthorViewModel>>(author);    
+            return View(viewModel);
         }
+
         [HttpGet]
         [AjaxOnly]
         public IActionResult Create()
@@ -42,22 +34,11 @@
             {
                 return NotFound();
             }
-            var author = new Author
-            {
-                Name = model.Name,
-                Nationality = model.Nationality,
-                Brief = model.Brief,
-            };
+            var author = _mapper.Map<Author>(model);
             _context.Add(author);
             _context.SaveChanges();
 
-            var viewModel = new AuthorViewModel
-            {
-                Id = author.Id,
-                Name = author.Name,
-                Nationality = author.Nationality,
-                Brief = author.Brief,
-            };
+            var viewModel = _mapper.Map<AuthorViewModel>(author);
 
             return PartialView("_AuthorRow", viewModel);
         }
@@ -70,13 +51,8 @@
             if (AuthorView is null)
                 return NotFound();
 
-            var model = new AuthorFormViewModel
-            {
-                Id = id,
-                Name = AuthorView.Name,
-                Brief = AuthorView.Brief,
-                Nationality = AuthorView.Nationality,
-            };
+            var model = _mapper.Map<AuthorFormViewModel>(AuthorView);
+            
             return PartialView("_AuthorForm", model);
 
         }
@@ -90,13 +66,7 @@
             {
                 return BadRequest();
             }
-            var ViewModel = new AuthorFormViewModel
-            {
-                Id = id,
-                Name = AuthorView.Name,
-                Nationality = AuthorView.Nationality,
-                Brief = AuthorView.Brief,
-            };
+            var ViewModel = _mapper.Map<AuthorFormViewModel>(AuthorView);
             return PartialView("_AuthorForm", ViewModel);
         }
 
@@ -121,16 +91,7 @@
             item.LastUpdatedOn = DateTime.Now;
 
             _context.SaveChanges();
-            var ViewModel = new AuthorViewModel
-            {
-                Id = item.Id,
-                Name = item.Name,
-                Nationality = item.Nationality,
-                LastUpdatedOn = item.LastUpdatedOn,
-                Brief = item.Brief,
-                IsDeleted = item.IsDeleted,
-                CreatedOn = item.CreatedOn
-            };
+            var ViewModel = _mapper.Map<AuthorViewModel>(item);
 
             return PartialView("_AuthorRow", ViewModel);
         }

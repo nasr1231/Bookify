@@ -28,10 +28,10 @@
                 <div class="col-md-4">
                     <!--begin::Input group-->
                     <div class="form-floating mb-5">
-                        <input type="file" class="form-control form-control-solid" placeholder="Insert Image" asp-for="ImageUrl" />
-                        <label asp-for="Title"></label>
+                        <input type="file" class="form-control form-control-solid" placeholder="Insert Image" asp-for="Image" accept=".jpg, .png, .jpeg"/>
+                        <label asp-for="Image"></label>
                     </div>
-                    <span asp-validation-for="ImageUrl" class="text-danger d-block"></span>
+                    <span asp-validation-for="Image" class="text-danger d-block"></span>
                 </div>
             </div>                        
             <div class="row">
@@ -78,7 +78,7 @@
             </div>
             <div class="row">
                 <div class="col-md-4 py-4">
-                    <div class="form-check form-check-custom form-check-success form-check-solid      mb-5">
+                    <div class="form-check form-switch form-switch-success form-switch-solid mb-5">
                         <input class="form-check-input" type="checkbox" id="flexCheckboxLg" />
                         <label class="form-check-label" for="flexCheckboxLg" asp-for="IsAvaliableForRental">
                             Is Available For Rent

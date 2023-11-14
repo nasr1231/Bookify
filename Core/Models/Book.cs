@@ -1,7 +1,7 @@
 ﻿namespace Bookify.Core.Models
 {
     [Index(nameof(Title), nameof(AuthorId), IsUnique =true)]
-    public class Book
+    public class Book : DataModel
     {
         public int Id { get; set; }
         [MaxLength(150)]

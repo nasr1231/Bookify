@@ -96,3 +96,8 @@ html {
 .form-floating > .form-select {
     padding-bottom: 0.225rem;
 }
+
+.image-preview{
+    height: 150px;
+    width: 120px;
+}

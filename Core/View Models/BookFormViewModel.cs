@@ -2,7 +2,7 @@
 
 namespace Bookify.Core.View_Models
 {
-    public class BookFormViewModel : DataModel
+    public class BookFormViewModel
     {
         public int Id { get; set; }
         [MaxLength(150 , ErrorMessage = UserErrors.MaxLength), ]
@@ -18,6 +18,7 @@ namespace Bookify.Core.View_Models
         [Display(Name = "Image")]
         public IFormFile? Image { get; set; }
         public string? ImageUrl { get; set; }
+
         [MaxLength(50, ErrorMessage = UserErrors.MaxLength)]
         public string Hall { get; set; } = null!;
         [Display(Name = "Is Avaliable For Rental?")]

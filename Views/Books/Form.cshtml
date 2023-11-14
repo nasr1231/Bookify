@@ -24,11 +24,16 @@
 <div class="card-body flex-row">
     <div class="table-responsive">
         <form method="post" asp-controller="Books" enctype="multipart/form-data">
+            @if(Model.Id > 0)
+            {
+                <input type="hidden" asp-for="Id"/>
+            }
             <div class="row">
                 <div class="col-md-4">
-                    <!--begin::Input group-->
+                    <img id="Image-Preview" src="~/Images/Books/@(Model.ImageUrl is null ? "No-Image-Placeholder.svg.png" : Model.ImageUrl)" class="img-thumbnail image-preview" alt="Image Upload">
                     <div class="form-floating mb-5">
-                        <input type="file" class="form-control form-control-solid" placeholder="Insert Image" asp-for="Image" accept=".jpg, .png, .jpeg"/>
+                        <input type="file" class="form-control form-control-solid" placeholder="Insert Image" asp-for="Image" accept=".jpg, .png, .jpeg"
+                        onchange="document.getElementById('Image-Preview').src = window.URL.createObjectURL(this.files[0])"/>
                         <label asp-for="Image"></label>
                     </div>
                     <span asp-validation-for="Image" class="text-danger d-block"></span>

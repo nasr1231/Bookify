@@ -10,8 +10,8 @@ namespace Bookify.Controllers
         private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly IMapper _mapper;
         private readonly ApplicationDbContext _context;
-        private List<string> _allowedExtensions = new() { ".png", ".jpg", ".jpeg"};
-        private int _maxAllowedSize = 2097152;
+        private readonly List<string> _allowedExtensions = new() { ".png", ".jpg", ".jpeg" };
+        private readonly int _maxAllowedSize = 2097152;
 
 
         public BooksController(IMapper mapper, ApplicationDbContext context, IWebHostEnvironment webHostEnvironment)
@@ -27,8 +27,8 @@ namespace Bookify.Controllers
         }
         [HttpGet]
         public IActionResult Create()
-        {            
-            return View("Form", PopulateViewModel()); 
+        {
+            return View("Form", PopulateViewModel());
         }
 
         [HttpPost]
@@ -43,7 +43,7 @@ namespace Bookify.Controllers
             var book = _mapper.Map<Book>(model);
 
 
-            if(model.Image is not null)
+            if (model.Image is not null)
             {
 
                 var extension = Path.GetExtension(model.Image.FileName);
@@ -52,7 +52,7 @@ namespace Bookify.Controllers
                     ModelState.AddModelError(nameof(model.Image), UserErrors.NotAlowedExtensions);
                     return View("Form", PopulateViewModel());
                 }
-                if(model.Image.Length > _maxAllowedSize)
+                if (model.Image.Length > _maxAllowedSize)
                 {
                     ModelState.AddModelError(nameof(model.Image), UserErrors.MaxImageSize);
                     return View("Form", PopulateViewModel());
@@ -60,18 +60,18 @@ namespace Bookify.Controllers
 
                 var imageName = $"{Guid.NewGuid()}{extension}";
 
-                var path = Path.Combine($"{_webHostEnvironment.WebRootPath}/Images/Books",imageName);
+
+                var path = Path.Combine($"{_webHostEnvironment.WebRootPath}/Images/Books", imageName);
 
                 using var stream = System.IO.File.Create(path);
 
                 model.Image.CopyTo(stream);
-
                 book.ImageUrl = imageName;
             }
 
-            foreach(var category in model.SelectedCategories)
+            foreach (var category in model.SelectedCategories)
             {
-                book.Categories.Add(new BookCategory { CategoryId = category});
+                book.Categories.Add(new BookCategory { CategoryId = category });
             }
 
             _context.Add(book);
@@ -80,6 +80,98 @@ namespace Bookify.Controllers
             // Will be replaced with book details view later
             return RedirectToAction(nameof(Index));
         }
+
+        public IActionResult Edit(int id)
+        {
+            var book = _context.Books.Include(e => e.Categories).SingleOrDefault(b => b.Id == id);
+            if (book is null)
+                return NotFound();
+
+            var model = _mapper.Map<BookFormViewModel>(book);
+            var viewModel = PopulateViewModel(model);
+
+            viewModel.SelectedCategories = book.Categories.Select(e => e.CategoryId).ToList();
+            return View("Form", viewModel);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(BookFormViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View("Form", PopulateViewModel());
+            }
+
+            var book = _context.Books.Include(e => e.Categories).SingleOrDefault(b => b.Id == model.Id);
+            if (book is null)
+                return NotFound();
+
+            if (model.Image is not null)
+            {
+                /*
+                    Describtion: This Validation To check either the user is uploading new Image or replacing the old one
+                    with new one or the user did not upload a new Image.
+
+                    Functionality:
+                    1- Check if the Image Url is empty or not.
+                    2- If it is not empty we store the old path for image.
+                    3- The last condition to check whether the the old path is equal to the new and if it is not the same
+                    we terminate the old path. - and code will continue to excute the next block of codes.
+                 */
+
+                if (!string.IsNullOrEmpty(book.ImageUrl))
+                {
+                    var OldImagePath = Path.Combine($"{_webHostEnvironment.WebRootPath}/Images/Books", book.ImageUrl);
+                    if (System.IO.File.Exists(OldImagePath))
+                    {
+                        System.IO.File.Delete(OldImagePath);
+                    }
+                }
+                // Here to check if the model is empty - Means the user did not upload any new Image - and the
+                // Image url is not empty - Means that there is an exsiting image - so the image still remaining and not to be removed
+                else if(model.Image is null && !string.IsNullOrEmpty(book.ImageUrl))
+                {
+                    model.ImageUrl = book.ImageUrl;
+                }
+
+                var extension = Path.GetExtension(model.Image.FileName);
+
+                if (!_allowedExtensions.Contains(extension))
+                {
+                    ModelState.AddModelError(nameof(model.Image), UserErrors.NotAlowedExtensions);
+                    return View("Form", PopulateViewModel());
+                }
+                if (model.Image.Length > _maxAllowedSize)
+                {
+                    ModelState.AddModelError(nameof(model.Image), UserErrors.MaxImageSize);
+                    return View("Form", PopulateViewModel());
+                }
+
+                var imageName = $"{Guid.NewGuid()}{extension}";
+
+                var path = Path.Combine($"{_webHostEnvironment.WebRootPath}/Images/Books", imageName);
+
+                using var stream = System.IO.File.Create(path);
+
+                model.Image.CopyTo(stream);
+                model.ImageUrl = imageName;
+            }
+
+
+            book = _mapper.Map(model, book);
+            book.LastUpdatedOn = DateTime.Now;
+
+            foreach (var category in model.SelectedCategories)
+            {
+                book.Categories.Add(new BookCategory { CategoryId = category });
+            }
+
+            _context.SaveChanges();
+
+            // Will be replaced with book details view later
+            return RedirectToAction(nameof(Index));
+        }
+
         private BookFormViewModel PopulateViewModel(BookFormViewModel? model = null)
         {
             /*
@@ -92,7 +184,7 @@ namespace Bookify.Controllers
                 Book data so we no longer need to send authors and categories data again to the selecteditems list
 
              */
-            BookFormViewModel viewModel = model is null ? new BookFormViewModel() : model;            
+            BookFormViewModel viewModel = model is null ? new BookFormViewModel() : model;
 
             var authors = _context.authors.Where(sort => !sort.IsDeleted).OrderBy(a => a.Name).ToList();
             var categories = _context.categories.Where(sort => !sort.IsDeleted).OrderBy(a => a.CategoryName).ToList();

@@ -17,9 +17,9 @@
     <div class="mb-5">
         <div class="form-floating mb-2">
             <input type="text" class="form-control" placeholder="Name" asp-for="CategoryName" id="kt_docs_maxlength_threshold" />
-            <label asp-for="CategoryName"></label>
-            <span asp-validation-for="CategoryName" class="text-danger"></span>
+            <label asp-for="CategoryName"></label>            
         </div>
+        <span asp-validation-for="CategoryName" class="text-danger"></span>
     </div>
     <partial name="_ModalFooter" />
 </form>

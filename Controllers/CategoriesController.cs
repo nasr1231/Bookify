@@ -40,6 +40,7 @@
             _context.SaveChanges();
 
             var viewModel = _mapper.Map<CategoryViewModel>(model);
+
             return PartialView("_CategoryRow", viewModel);
         }
 
@@ -93,10 +94,11 @@
             return Ok();
         }
 
-        public IActionResult UniqueItems(CategoryFormViewModel model)
+        public IActionResult AllowItems(CategoryFormViewModel model)
         {
             var category = _context.categories.SingleOrDefault(c => c.CategoryName == model.CategoryName);
-            var IsAllowed = category is null || category.CategoryName.Equals(model.CategoryId);
+            var IsAllowed = category is null || category.CategoryId.Equals(model.CategoryId);
+
             return Json(IsAllowed);
         }
     }

@@ -8,6 +8,7 @@ namespace Bookify.Core.Mapping
         {
             // Category Mapper
             CreateMap<Category, CategoryViewModel>().ReverseMap();
+            CreateMap<CategoryFormViewModel, CategoryViewModel>().ReverseMap();
             CreateMap<CategoryFormViewModel, Category>().ReverseMap();
             CreateMap<Category, SelectListItem>()
             .ForMember(dest => dest.Value, opt => opt.MapFrom(src => src.CategoryId))

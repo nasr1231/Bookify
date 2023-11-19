@@ -125,11 +125,7 @@ namespace Bookify.Controllers
                     }
                 }
                 // Here to check if the model is empty - Means the user did not upload any new Image - and the
-                // Image url is not empty - Means that there is an exsiting image - so the image still remaining and not to be removed
-                else if(model.Image is null && !string.IsNullOrEmpty(book.ImageUrl))
-                {
-                    model.ImageUrl = book.ImageUrl;
-                }
+                // Image url is not empty - Means that there is an exsiting image - so the image still remaining and not to be removed                
 
                 var extension = Path.GetExtension(model.Image.FileName);
 
@@ -153,7 +149,10 @@ namespace Bookify.Controllers
                 model.Image.CopyTo(stream);
                 model.ImageUrl = imageName;
             }
-
+            else if (model.Image is null && !string.IsNullOrEmpty(book.ImageUrl))
+            {
+                model.ImageUrl = book.ImageUrl;
+            }
 
             book = _mapper.Map(model, book);
             book.LastUpdatedOn = DateTime.Now;

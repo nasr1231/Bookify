@@ -1,7 +1,4 @@
-﻿using Bookify.Core.Models;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using System.Runtime.CompilerServices;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Bookify.Controllers
 {
@@ -25,7 +22,7 @@ namespace Bookify.Controllers
         {
             return View();
         }
-        [HttpGet]
+
         public IActionResult Create()
         {
             return View("Form", PopulateViewModel());
@@ -37,7 +34,7 @@ namespace Bookify.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View("Form", PopulateViewModel());
+                return View("Form", PopulateViewModel(model));
             }
 
             var book = _mapper.Map<Book>(model);
@@ -45,21 +42,21 @@ namespace Bookify.Controllers
 
             if (model.Image is not null)
             {
-
                 var extension = Path.GetExtension(model.Image.FileName);
+
                 if (!_allowedExtensions.Contains(extension))
                 {
                     ModelState.AddModelError(nameof(model.Image), UserErrors.NotAlowedExtensions);
-                    return View("Form", PopulateViewModel());
+                    return View("Form", PopulateViewModel(model));
                 }
+
                 if (model.Image.Length > _maxAllowedSize)
                 {
                     ModelState.AddModelError(nameof(model.Image), UserErrors.MaxImageSize);
-                    return View("Form", PopulateViewModel());
+                    return View("Form", PopulateViewModel(model));
                 }
 
                 var imageName = $"{Guid.NewGuid()}{extension}";
-
 
                 var path = Path.Combine($"{_webHostEnvironment.WebRootPath}/Images/Books", imageName);
 
@@ -193,6 +190,12 @@ namespace Bookify.Controllers
             viewModel.Categories = _mapper.Map<IEnumerable<SelectListItem>>(categories);
 
             return viewModel;
+        }
+        public IActionResult UniqueItem(BookFormViewModel model)
+        {
+            var book = _context.Books.FirstOrDefault(b => b.Title == model.Title && b.AuthorId == model.AuthorId);
+            var IsAllowed = book is null || book.Id.Equals(model.Id);
+            return Json(IsAllowed);
         }
     }
 }

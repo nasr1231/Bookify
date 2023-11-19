@@ -97,7 +97,27 @@ html {
     padding-bottom: 0.225rem;
 }
 
-.image-preview{
-    height: 150px;
-    width: 120px;
+.btn.btn-icon.btn-circle {
+    border-radius: 50%;
+    height: 28px;
+    object-fit: cover;
+}
+
+.select2-container .select2-selection--single {
+    display: block;
+    height: 62px;
+}
+
+.field-validation-error{
+    height: 36px;
+}
+
+.select2-container--bootstrap5 .select2-selection--multiple:not(.form-select-sm):not(.form-select-lg) {
+    padding-top: 1.575rem;
+}
+
+.book-footer {
+    display: flex;
+    border-top: 1px solid #eee;
+    padding: 19px 0px 0px 0px;
 }

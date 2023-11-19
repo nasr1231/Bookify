@@ -175,6 +175,31 @@ $(document).ready(function () {
     if (message !== '') {
         ShowSuccessMessage(message);
     }
+
+    // Select2
+    $('.js-select2').select2();
+
+    //Date Picker
+    $('.js-datepicker').daterangepicker({
+        singleDatePicker: true,
+        autoApply: true,
+        showDropdowns: true,
+        drops: 'up',
+        maxDate: new Date()        
+    });
+
+    // Tinymce Editor
+    if ($('.js-tinymce').length > 0) {
+        var options = { selector: ".js-tinymce", height: "469" };
+
+        if (KTThemeMode.getMode() === "dark") {
+            options["skins"] = "oxide-dark";
+            options["content_css"] = "dark";
+        }
+        tinymce.init(options);
+    }
+    
+
     // Data Table Setting
     KTUtil.onDOMContentLoaded(function () {
         KTDatatables.init();

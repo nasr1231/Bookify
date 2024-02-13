@@ -15,6 +15,7 @@
         public string Hall { get; set; } = null!;
         public bool IsAvaliableForRental { get; set; }   
         public string Description { get; set; } = null!;
+        public int? Pages{ get; set; }
         public ICollection<BookCategory> Categories { get; set; } = new List<BookCategory>();
     }
 }

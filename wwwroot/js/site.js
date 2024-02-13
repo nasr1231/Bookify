@@ -4,8 +4,12 @@ var UpdatedRow;
 var datatable;
 var exported_Columns = [];
 
-function OnModalBegin() {
+function disableSubmitButton() {
     $('.body :submit').attr('disabled', 'disabled').attr('data-kt-indicator', 'on');
+}
+
+function OnModalBegin() {
+    disableSubmitButton();
 }
 
 // Messages
@@ -176,6 +180,12 @@ $(document).ready(function () {
         ShowSuccessMessage(message);
     }
 
+    // Disable Button
+    $('form').on('submit', function () {
+        var isValid = $(this).valid();
+        if (isValid) disableSubmitButton();
+    });
+
     // Select2
     $('.js-select2').select2();
 
@@ -190,7 +200,7 @@ $(document).ready(function () {
 
     // Tinymce Editor
     if ($('.js-tinymce').length > 0) {
-        var options = { selector: ".js-tinymce", height: "469" };
+        var options = { selector: ".js-tinymce", height: "537" };
 
         if (KTThemeMode.getMode() === "dark") {
             options["skins"] = "oxide-dark";

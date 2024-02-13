@@ -29,6 +29,8 @@ namespace Bookify.Core.View_Models
         public string Hall { get; set; } = null!;
         [Display(Name = "Is Avaliable For Rental?")]
         public bool IsAvaliableForRental { get; set; }
+        [Display(Name ="Pages Number")]
+        public int? Pages { get; set; }
         public string Description { get; set; } = null!;
         [Display(Name = "Categories")]
         public IList<int> SelectedCategories { get; set; } = new List<int>();

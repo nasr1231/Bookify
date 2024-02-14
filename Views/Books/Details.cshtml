@@ -95,57 +95,41 @@
             <ul class="nav nav-stretch nav-line-tabs nav-line-tabs-2x border-transparent fs-5 fw-bold">
                 <!--begin::Nav item-->
                 <li class="nav-item mt-2">
-                    <a class="nav-link text-active-primary ms-0 me-10 py-5 " href="/metronic8/demo1/account/overview.html">
-                        Overview
+                    <a class="nav-link text-active-primary ms-0 me-10 py-5 active" data-bs-toggle="tab" href="#Description">
+                        Description
                     </a>
                 </li>
-                <!--end::Nav item-->
-                <!--begin::Nav item-->
                 <li class="nav-item mt-2">
-                    <a class="nav-link text-active-primary ms-0 me-10 py-5 active" href="/metronic8/demo1/account/settings.html">
-                        Settings
+                    <a class="nav-link text-active-primary ms-0 me-10 py-5" data-bs-toggle="tab" href="#Copies">
+                        Copies
                     </a>
-                </li>
-                <!--end::Nav item-->
-                <!--begin::Nav item-->
-                <li class="nav-item mt-2">
-                    <a class="nav-link text-active-primary ms-0 me-10 py-5 " href="/metronic8/demo1/account/security.html">
-                        Security
-                    </a>
-                </li>
-                <!--end::Nav item-->
-                <!--begin::Nav item-->
-                <li class="nav-item mt-2">
-                    <a class="nav-link text-active-primary ms-0 me-10 py-5 " href="/metronic8/demo1/account/activity.html">
-                        Activity
-                    </a>
-                </li>
-                <!--end::Nav item-->
-                <!--begin::Nav item-->
-                <li class="nav-item mt-2">
-                    <a class="nav-link text-active-primary ms-0 me-10 py-5 " href="/metronic8/demo1/account/billing.html">
-                        Billing
-                    </a>
-                </li>                
+                </li>                           
             </ul>
             <!--begin::Navs-->
         </div>
     </div>
-    <!--end::Navbar-->
-    <!--begin::Basic info-->
-    <div class="card mb-5 mb-xl-10" bis_skin_checked="1">
-        <!--begin::Card header-->
-        <div class="card-header border-0 cursor-pointer" role="button" data-bs-toggle="collapse" data-bs-target="#kt_account_profile_details" aria-expanded="true" aria-controls="kt_account_profile_details" bis_skin_checked="1">
-            <!--begin::Card title-->
-            <div class="card-title m-0" bis_skin_checked="1">
-                <h3 class="fw-bold m-0">Profile Details</h3>
-            </div>
-            <!--end::Card title-->
-        </div>
-        <!--begin::Card header-->
-        <!--begin::Content-->
-        <div id="kt_account_settings_profile_details" class="collapse show" bis_skin_checked="1">
 
-        </div>    
-    </div>    
+    <div class="tab-content">
+        <div class="card tab-pane fade show active" id="Description">
+            <div class="card-header">
+                <div class="card-title m-0">
+                    <h3 class="fw-bold m-0">Description</h3>
+                </div>
+            </div>
+            <div class="card-body p-3">
+                @Html.Raw(Model.Description)
+            </div>
+        </div>
+
+        <div class="card tab-pane fade" id="Copies">
+            <div class="card-header">
+                <div class="card-title m-0">
+                    <h3 class="fw-bold m-0">Copies</h3>
+                </div>
+            </div>
+            <div class="card-body">
+                Nasssssor
+            </div>
+        </div>
+    </div> 
 </div>

@@ -12,8 +12,9 @@
                 <!--begin: Pic-->
                 <div class="me-7 mb-4" bis_skin_checked="1">
                     <div class="symbol symbol-100px symbol-lg-160px symbol-fixed position-relative" bis_skin_checked="1">
-                        <img src="/Images/Books/@Model.ImageUrl" alt="image">
-                        <div class="position-absolute translate-middle bottom-0 start-100 mb-6 bg-success rounded-circle border border-4 border-body h-20px w-20px" bis_skin_checked="1"></div>
+                        <a data-fslightbox href="/Images/Books/@Model.ImageUrl">
+                            <img src="/Images/Books/@Model.ImageUrl" alt="@Model.Title"> 
+                        </a>
                     </div>
                 </div>
                 <!--end::Pic-->
@@ -116,8 +117,10 @@
                     <h3 class="fw-bold m-0">Description</h3>
                 </div>
             </div>
-            <div class="card-body p-3">
-                @Html.Raw(Model.Description)
+            <div class="card-body py-10 ps-12">
+                <div class="w-100">
+                    @Html.Raw(Model.Description)
+                </div>
             </div>
         </div>
 
@@ -133,3 +136,7 @@
         </div>
     </div> 
 </div>
+
+@section Plugins{
+    <script src="~/assets/plugins/fslightbox/fslightbox.bundle.js"></script>
+}

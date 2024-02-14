@@ -23,6 +23,15 @@ namespace Bookify.Controllers
             return View();
         }
 
+        public IActionResult Details(int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+            return View();
+        }
+
         public IActionResult Create()
         {
             return View("Form", PopulateViewModel());
@@ -75,7 +84,7 @@ namespace Bookify.Controllers
             _context.SaveChanges();
 
             // Will be replaced with book details view later
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Details), new { id= book.Id});
         }
 
         public IActionResult Edit(int id)
@@ -165,7 +174,7 @@ namespace Bookify.Controllers
             _context.SaveChanges();
 
             // Will be replaced with book details view later
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Details), new { id = book.Id });
         }
 
         private BookFormViewModel PopulateViewModel(BookFormViewModel? model = null)

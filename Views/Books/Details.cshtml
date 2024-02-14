@@ -39,7 +39,7 @@
                                     @Model.Author
                                 </span>
                             </div>
-                            <div class="d-flex flex-wrap fw-semibold fs-6 text-gray-400 mb-4 pe-2">                                
+                            <div class="d-flex flex-wrap fw-semibold fs-6 text-gray-400 mb-4 pe-2">                                                                
                                 @Model.Publisher                                
                             </div>
                             <!--end::Info-->
@@ -56,9 +56,16 @@
                         <div class="d-flex flex-column flex-grow-1 pe-8" bis_skin_checked="1">
                             <div class="d-flex flex-wrap" bis_skin_checked="1">
 
-                                <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">                                    
-                                    <div class="d-flex fs-4 fw-bold align-items-center" bis_skin_checked="1">
-                                        @Model.PublishingDate.ToString("dd MMM, yyyy")
+                                <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">  
+                                    
+                                    <div class="d-flex align-items-center me-2">
+                                        <span class="svg-icon svg-icon-3 svg-icon-primary me-5">
+                                            <i class="ki-duotone ki-calendar fs-5">
+                                                <span class="path1"></span>
+                                                <span class="path2"></span>
+                                            </i>
+                                        </span>
+                                        <div class="fs-7 fw-bold ">@Model.PublishingDate.ToString("dd MMM, yyyy")</div>
                                     </div>
                                     <div class="fw-semibold fs-6 text-gray-500" bis_skin_checked="1">Publishing Date</div>
                                     <!--end::Label-->
@@ -66,15 +73,15 @@
 
                                 <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
                                     <!--begin::Number-->
-                                    <div class="d-flex fs-4 fw-bold align-items-center">
+                                    <div class="d-flex fs-7 fw-bold align-items-center">
                                         @Model.CreatedOn.ToString("dd MMM, yyyy")
                                     </div>
                                     <div class="fw-semibold fs-6 text-gray-500" bis_skin_checked="1">Added Date</div>
                                 </div>
 
                                  <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
-                                    <div class="d-flex fs-4 fw-bold align-items-center" bis_skin_checked="1">
-                                        <div class="fs-4 fw-bold counted" data-kt-countup="true" data-kt-countup-value="7" data-kt-countup-prefix="%" data-kt-initialized="1" bis_skin_checked="1">7</div>
+                                    <div class="d-flex fs-7 fw-bold align-items-center" bis_skin_checked="1">
+                                        <div class="fs-7 fw-bold counted" data-kt-countup-value="7">7</div>
                                     </div>
                                     <div class="fw-semibold fs-6 text-gray-500" bis_skin_checked="1">Copies</div>
                                 </div>
@@ -138,5 +145,5 @@
 </div>
 
 @section Plugins{
-    <script src="~/assets/plugins/fslightbox/fslightbox.bundle.js"></script>
+<script src="~/assets/plugins/fslightbox/fslightbox.bundle.js"></script>
 }

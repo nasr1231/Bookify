@@ -42,8 +42,7 @@
                         </svg>
 
                         <input type="file" asp-for="Image" accept=".png, .jpg, .jpeg" />
-                        <input type="hidden" name="avatar_remove" />
-                        <span asp-validation-for="@Model.Image" class="text-danger d-block"></span>
+                        <input type="hidden" name="avatar_remove" />                        
                     </label>
                     <span class="btn btn-icon btn-circle btn-color-muted btn-active-color-primary w-25px h-30px bg-body shadow"
                           data-kt-image-input-action="cancel"
@@ -60,6 +59,7 @@
                     </span>
                     <!--end::Remove button-->
                 </div>
+                <span asp-validation-for="@Model.Image" class="text-danger d-block"></span>
                 <div class="form-text">Allowed Files Types: PNG, JPG, JPEG Only, and Cannot be more than 2MB.</div>
             </div>
             

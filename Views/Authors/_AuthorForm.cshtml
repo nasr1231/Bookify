@@ -18,7 +18,7 @@
     <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container">
         <label class="d-flex align-items-center fs-6 fw-bold mb-2"><span class="required">Author Name</span></label>
         <input type="text" asp-for="Name" class="form-control form-control-solid" placeholder="Enter Author Name">
-        <span asp-validation-for="Name" class="text-danger"></span>
+        <span asp-validation-for="@Model.Name" class="text-danger d-block"></span>
     </div>
     <div class="d-flex flex-column mb-8" id="container">
         <label class="d-flex align-items-center fs-6 fw-bold mb-2">
@@ -27,11 +27,12 @@
         <select class="form-select" id="mySelect" asp-for="Nationality">
             <partial name="_NationalitiesList" />
         </select>
-        <span asp-validation-for="Nationality" class="text-danger"></span>
+        <span asp-validation-for="@Model.Nationality" class="text-danger d-block"></span>
     </div>
     <div class="d-flex flex-column mb-8">
         <label class="fs-6 fw-bold mb-2">Author Brief</label>
         <textarea asp-for="Brief" class="form-control form-control-solid" id="disabled-form" placeholder="Enter Author Brief"></textarea>
+        <span asp-validation-for="@Model.Brief" class="text-danger d-block"></span>
     </div>
     <partial name="_ModalFooter" />
 </form>

@@ -31,7 +31,9 @@ namespace Bookify.Controllers
             }
 
             var book = _context.Books.
-                Include( auth => auth.Author)
+                Include(auth => auth.Author).
+                Include(b => b.Categories)
+                    .ThenInclude(c => c.Category)
                 .SingleOrDefault(b => b.Id == id);
 
             if (book is null)

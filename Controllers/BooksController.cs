@@ -29,7 +29,17 @@ namespace Bookify.Controllers
             {
                 return BadRequest();
             }
-            return View();
+
+            var book = _context.Books.
+                Include( auth => auth.Author)
+                .SingleOrDefault(b => b.Id == id);
+
+            if (book is null)
+                return NotFound();
+
+            var viewModel = _mapper.Map<BookViewModel>(book);
+
+            return View(viewModel);
         }
 
         public IActionResult Create()
@@ -171,6 +181,7 @@ namespace Bookify.Controllers
                 book.Categories.Add(new BookCategory { CategoryId = category });
             }
 
+            _context.SaveChanges();
             _context.SaveChanges();
 
             // Will be replaced with book details view later

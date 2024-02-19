@@ -4,6 +4,7 @@ using Bookify.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Bookify.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240214044324_Rename-Identity-Tables")]
+    partial class RenameIdentityTables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -48,12 +51,11 @@ namespace Bookify.Data.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<int>("NationalityId")
-                        .HasColumnType("int");
+                    b.Property<string>("Nationality")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("NationalityId");
 
                     b.ToTable("authors");
                 });
@@ -161,300 +163,6 @@ namespace Bookify.Data.Migrations
                         .IsUnique();
 
                     b.ToTable("categories");
-                });
-
-            modelBuilder.Entity("Bookify.Core.Models.Nationality", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Nationalities");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "Afghan"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "Albanian"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Name = "Algerian"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Name = "American"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Name = "Andorran"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            Name = "Angolan"
-                        },
-                        new
-                        {
-                            Id = 7,
-                            Name = "Antiguans"
-                        },
-                        new
-                        {
-                            Id = 8,
-                            Name = "Argentinean"
-                        },
-                        new
-                        {
-                            Id = 9,
-                            Name = "Armenian"
-                        },
-                        new
-                        {
-                            Id = 10,
-                            Name = "Australian"
-                        },
-                        new
-                        {
-                            Id = 11,
-                            Name = "Austrian"
-                        },
-                        new
-                        {
-                            Id = 12,
-                            Name = "Azerbaijani"
-                        },
-                        new
-                        {
-                            Id = 13,
-                            Name = "Bahamian"
-                        },
-                        new
-                        {
-                            Id = 14,
-                            Name = "Bahraini"
-                        },
-                        new
-                        {
-                            Id = 15,
-                            Name = "Bangladeshi"
-                        },
-                        new
-                        {
-                            Id = 16,
-                            Name = "Barbadian"
-                        },
-                        new
-                        {
-                            Id = 17,
-                            Name = "Barbudans"
-                        },
-                        new
-                        {
-                            Id = 18,
-                            Name = "Batswana"
-                        },
-                        new
-                        {
-                            Id = 19,
-                            Name = "Belarusian"
-                        },
-                        new
-                        {
-                            Id = 20,
-                            Name = "Belgian"
-                        },
-                        new
-                        {
-                            Id = 21,
-                            Name = "Belizean"
-                        },
-                        new
-                        {
-                            Id = 22,
-                            Name = "Beninese"
-                        },
-                        new
-                        {
-                            Id = 23,
-                            Name = "Bhutanese"
-                        },
-                        new
-                        {
-                            Id = 24,
-                            Name = "Bolivian"
-                        },
-                        new
-                        {
-                            Id = 25,
-                            Name = "Bosnian"
-                        },
-                        new
-                        {
-                            Id = 26,
-                            Name = "Brazilian"
-                        },
-                        new
-                        {
-                            Id = 27,
-                            Name = "British"
-                        },
-                        new
-                        {
-                            Id = 28,
-                            Name = "Bruneian"
-                        },
-                        new
-                        {
-                            Id = 29,
-                            Name = "Bulgarian"
-                        },
-                        new
-                        {
-                            Id = 30,
-                            Name = "Burkinabe"
-                        },
-                        new
-                        {
-                            Id = 31,
-                            Name = "Burmese"
-                        },
-                        new
-                        {
-                            Id = 32,
-                            Name = "Burundian"
-                        },
-                        new
-                        {
-                            Id = 33,
-                            Name = "Cambodian"
-                        },
-                        new
-                        {
-                            Id = 34,
-                            Name = "Cameroonian"
-                        },
-                        new
-                        {
-                            Id = 35,
-                            Name = "Canadian"
-                        },
-                        new
-                        {
-                            Id = 36,
-                            Name = "Cape Verdean"
-                        },
-                        new
-                        {
-                            Id = 37,
-                            Name = "Central African"
-                        },
-                        new
-                        {
-                            Id = 38,
-                            Name = "Chadian"
-                        },
-                        new
-                        {
-                            Id = 39,
-                            Name = "Chilean"
-                        },
-                        new
-                        {
-                            Id = 40,
-                            Name = "Chinese"
-                        },
-                        new
-                        {
-                            Id = 41,
-                            Name = "Colombian"
-                        },
-                        new
-                        {
-                            Id = 42,
-                            Name = "Comoran"
-                        },
-                        new
-                        {
-                            Id = 43,
-                            Name = "Congolese"
-                        },
-                        new
-                        {
-                            Id = 44,
-                            Name = "Costa Rican"
-                        },
-                        new
-                        {
-                            Id = 45,
-                            Name = "Croatian"
-                        },
-                        new
-                        {
-                            Id = 46,
-                            Name = "Cuban"
-                        },
-                        new
-                        {
-                            Id = 47,
-                            Name = "Cypriot"
-                        },
-                        new
-                        {
-                            Id = 48,
-                            Name = "Czech"
-                        },
-                        new
-                        {
-                            Id = 49,
-                            Name = "Danish"
-                        },
-                        new
-                        {
-                            Id = 50,
-                            Name = "Djibouti"
-                        },
-                        new
-                        {
-                            Id = 51,
-                            Name = "Dominican"
-                        },
-                        new
-                        {
-                            Id = 52,
-                            Name = "Dutch"
-                        },
-                        new
-                        {
-                            Id = 53,
-                            Name = "East Timorese"
-                        },
-                        new
-                        {
-                            Id = 54,
-                            Name = "Ecuadorean"
-                        },
-                        new
-                        {
-                            Id = 55,
-                            Name = "Egyptian"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -657,17 +365,6 @@ namespace Bookify.Data.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
-                });
-
-            modelBuilder.Entity("Bookify.Core.Models.Author", b =>
-                {
-                    b.HasOne("Bookify.Core.Models.Nationality", "Nationality")
-                        .WithMany()
-                        .HasForeignKey("NationalityId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Nationality");
                 });
 
             modelBuilder.Entity("Bookify.Core.Models.Book", b =>

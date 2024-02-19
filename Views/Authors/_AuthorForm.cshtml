@@ -24,10 +24,9 @@
         <label class="d-flex align-items-center fs-6 fw-bold mb-2">
             <span class="required">Author Nationality</span>
         </label>
-        <select class="form-select" id="mySelect" asp-for="Nationality">
-            <partial name="_NationalitiesList" />
+        <select class="form-select" id="mySelect" asp-for="@Model!.NationalityId" asp-items="@Model.Nationalities">            
         </select>
-        <span asp-validation-for="@Model!.Nationality" class="text-danger d-block h-10px"></span>
+        <span asp-validation-for="@Model!.NationalityId" class="text-danger d-block h-10px"></span>
     </div>
     <div class="d-flex flex-column mb-8">
         <label class="fs-6 fw-bold mb-2">Author Brief</label>

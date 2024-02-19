@@ -6,7 +6,8 @@
         [MaxLength(50)]
         [Required]
         public string Name { get; set; } = null!;
-        public string Nationality { get; set; } = null!;
-        public string Brief { get; set; }
+        public string Brief { get; set; } = null!;
+        public Nationality? Nationality { get; set; } 
+        public int NationalityId{ get; set; } 
     }
 }

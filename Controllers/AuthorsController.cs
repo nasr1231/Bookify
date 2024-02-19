@@ -1,4 +1,6 @@
-﻿namespace Bookify.Controllers
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+
+namespace Bookify.Controllers
 {
 
     public class AuthorsController : Controller
@@ -23,7 +25,7 @@
         [AjaxOnly]
         public IActionResult Create()
         {
-            return PartialView("_AuthorForm");
+            return PartialView("_AuthorForm", PopulateViewModel());
         }
 
         [HttpPost]
@@ -35,6 +37,8 @@
                 return NotFound();
             }
             var author = _mapper.Map<Author>(model);
+           
+
             _context.Add(author);
             _context.SaveChanges();
 
@@ -46,14 +50,14 @@
         [AjaxOnly]
         public IActionResult Preview(int id)
         {
-            var AuthorView = _context.authors.Find(id);
-
+            var AuthorView = _context.authors.Include(n => n.Nationality).SingleOrDefault(b => b.Id == id );
+           
             if (AuthorView is null)
                 return NotFound();
 
             var model = _mapper.Map<AuthorFormViewModel>(AuthorView);
             
-            return PartialView("_AuthorForm", model);
+            return PartialView("_AuthorForm", PopulateViewModel(model));
 
         }
 
@@ -67,7 +71,7 @@
                 return BadRequest();
             }
             var ViewModel = _mapper.Map<AuthorFormViewModel>(AuthorView);
-            return PartialView("_AuthorForm", ViewModel);
+            return PartialView("_AuthorForm", PopulateViewModel(ViewModel));
         }
 
         [HttpPost]
@@ -87,8 +91,8 @@
 
             item.Name = model.Name;
             item.Brief = model.Brief;
-            item.Nationality = model.Nationality;
             item.LastUpdatedOn = DateTime.Now;
+
 
             _context.SaveChanges();
             var ViewModel = _mapper.Map<AuthorViewModel>(item);
@@ -115,6 +119,18 @@
             var author = _context.authors.FirstOrDefault(c => c.Name == model.Name);
             var IsAllowed = author is null || author.Id.Equals(model.Id);
             return Json(IsAllowed);
+        }
+
+        private AuthorFormViewModel PopulateViewModel(AuthorFormViewModel? model = null)
+        {
+                        
+            AuthorFormViewModel viewModel = model is null ? new AuthorFormViewModel() : model;
+
+            var nationalities = _context.Nationalities.OrderBy(a => a.Name).ToList();
+
+            viewModel.Nationalities = _mapper.Map<IEnumerable<SelectListItem>>(nationalities);
+
+            return viewModel;
         }
     }
 }

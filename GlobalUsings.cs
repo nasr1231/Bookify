@@ -1,4 +1,5 @@
 ﻿global using AutoMapper;
+global using Bookify.Settings;
 global using Bookify.Core.Consts;
 global using Bookify.Core.Models;
 global using Bookify.Core.View_Models;

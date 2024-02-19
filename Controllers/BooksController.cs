@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using CloudinaryDotNet;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Extensions.Options;
 
 namespace Bookify.Controllers
 {
@@ -9,13 +11,21 @@ namespace Bookify.Controllers
         private readonly ApplicationDbContext _context;
         private readonly List<string> _allowedExtensions = new() { ".png", ".jpg", ".jpeg" };
         private readonly int _maxAllowedSize = 2097152;
+        private readonly Cloudinary _cloudinary;
 
-
-        public BooksController(IMapper mapper, ApplicationDbContext context, IWebHostEnvironment webHostEnvironment)
+        public BooksController(IMapper mapper, ApplicationDbContext context, IWebHostEnvironment webHostEnvironment, IOptions<CloudinarySettings> cloudinary)
         {
             _mapper = mapper;
             _context = context;
             _webHostEnvironment = webHostEnvironment;
+
+            Account account = new()
+            {
+                Cloud = cloudinary.Value.CloudName,
+                ApiKey = cloudinary.Value.APIKey,
+                ApiSecret = cloudinary.Value.APISecret,
+            };
+            _cloudinary = new Cloudinary(account);
         }
 
         public IActionResult Index()
@@ -51,7 +61,7 @@ namespace Bookify.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(BookFormViewModel model)
+        public async Task<IActionResult> Create(BookFormViewModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -82,8 +92,8 @@ namespace Bookify.Controllers
                 var path = Path.Combine($"{_webHostEnvironment.WebRootPath}/Images/Books", imageName);
 
                 using var stream = System.IO.File.Create(path);
+                await model.Image.CopyToAsync(stream);
 
-                model.Image.CopyTo(stream);
                 book.ImageUrl = imageName;
             }
 
@@ -96,7 +106,7 @@ namespace Bookify.Controllers
             _context.SaveChanges();
 
             // Will be replaced with book details view later
-            return RedirectToAction(nameof(Details), new { id= book.Id});
+            return RedirectToAction(nameof(Details), new { id = book.Id });
         }
 
         public IActionResult Edit(int id)
@@ -113,7 +123,7 @@ namespace Bookify.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(BookFormViewModel model)
+        public async Task<IActionResult> Edit(BookFormViewModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -167,10 +177,10 @@ namespace Bookify.Controllers
 
                 using var stream = System.IO.File.Create(path);
 
-                model.Image.CopyTo(stream);
+                await model.Image.CopyToAsync(stream);
                 model.ImageUrl = imageName;
             }
-            else if (model.Image is null && !string.IsNullOrEmpty(book.ImageUrl))
+            else if (!string.IsNullOrEmpty(book.ImageUrl))
             {
                 model.ImageUrl = book.ImageUrl;
             }

@@ -2,30 +2,30 @@
 @{
     ViewData["Title"] = Model.Title;
 }
-<div id="kt_app_content_container" class="app-container container-xxl " bis_skin_checked="1">
+<div id="kt_app_content_container" class="app-container container-xxl ">
 
     <!--begin::Navbar-->
-    <div class="card mb-5 mb-xl-10" bis_skin_checked="1">
-        <div class="card-body pt-9 pb-0" bis_skin_checked="1">
+    <div class="card mb-5 mb-xl-10">
+        <div class="card-body pt-9 pb-0">
             <!--begin::Details-->
-            <div class="d-flex flex-wrap flex-sm-nowrap" bis_skin_checked="1">
+            <div class="d-flex flex-wrap flex-sm-nowrap">
                 <!--begin: Pic-->
-                <div class="me-7 mb-4" bis_skin_checked="1">
-                    <div class="symbol symbol-100px symbol-lg-160px symbol-fixed position-relative" bis_skin_checked="1">
+                <div class="me-7 mb-4">
+                    <div class="symbol symbol-100px symbol-lg-160px symbol-fixed position-relative">
                         <a data-fslightbox href="/Images/Books/@Model.ImageUrl">
-                            <img src="/Images/Books/@Model.ImageUrl" alt="@Model.Title"> 
+                            <img src="/Images/Books/@Model.ImageUrl" class="w-150px" alt="@Model.Title"> 
                         </a>
                     </div>
                 </div>
                 <!--end::Pic-->
                 <!--begin::Info-->
-                <div class="flex-grow-1" bis_skin_checked="1">
+                <div class="flex-grow-1">
                     <!--begin::Title-->
-                    <div class="d-flex justify-content-between align-items-start flex-wrap mb-2" bis_skin_checked="1">
+                    <div class="d-flex justify-content-between align-items-start flex-wrap mb-2">
                         <!--begin::User-->
-                        <div class="d-flex flex-column" bis_skin_checked="1">
+                        <div class="d-flex flex-column">
                             <!--begin::Name-->
-                            <div class="d-flex align-items-center mb-2" bis_skin_checked="1">
+                            <div class="d-flex align-items-center mb-2">
                                 <span class="text-gray-900 fs-2 fw-bold me-1">@Model.Title</span>
                                 <span class="badge badge-light-@(Model.IsDeleted ? "danger" : Model.IsAvaliableForRental ? "success" : "warning") me-auto">
                                     @(Model.IsDeleted ? "Deleted" : Model.IsAvaliableForRental ? "Avaliable For Rental" : "Not Avaliable For Rental")
@@ -46,15 +46,15 @@
                         </div>
                         <!--end::User-->
                         <!--begin::Actions-->
-                        <div class="d-flex my-4" bis_skin_checked="1">
+                        <div class="d-flex my-4">
                             <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-sm btn-primary me-3">Edit</a>
                         </div>
                         <!--end::Actions-->
                     </div>
                     <!--end::Title-->
-                    <div class="d-flex flex-wrap flex-stack" bis_skin_checked="1">
-                        <div class="d-flex flex-column flex-grow-1 pe-8" bis_skin_checked="1">
-                            <div class="d-flex flex-wrap" bis_skin_checked="1">
+                    <div class="d-flex flex-wrap flex-stack">
+                        <div class="d-flex flex-column flex-grow-1 pe-8">
+                            <div class="d-flex flex-wrap">
 
                                 <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">  
                                     
@@ -67,7 +67,7 @@
                                         </span>
                                         <div class="fs-7 fw-bold ">@Model.PublishingDate.ToString("dd MMM, yyyy")</div>
                                     </div>
-                                    <div class="fw-semibold fs-6 text-gray-500" bis_skin_checked="1">Publishing Date</div>
+                                    <div class="fw-semibold fs-6 text-gray-500">Publishing Date</div>
                                     <!--end::Label-->
                                 </div>
 
@@ -76,14 +76,14 @@
                                     <div class="d-flex fs-7 fw-bold align-items-center">
                                         @Model.CreatedOn.ToString("dd MMM, yyyy")
                                     </div>
-                                    <div class="fw-semibold fs-6 text-gray-500" bis_skin_checked="1">Added Date</div>
+                                    <div class="fw-semibold fs-6 text-gray-500">Added Date</div>
                                 </div>
 
                                  <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
-                                    <div class="d-flex fs-7 fw-bold align-items-center" bis_skin_checked="1">
+                                    <div class="d-flex fs-7 fw-bold align-items-center">
                                         <div class="fs-7 fw-bold counted" data-kt-countup-value="7">7</div>
                                     </div>
-                                    <div class="fw-semibold fs-6 text-gray-500" bis_skin_checked="1">Copies</div>
+                                    <div class="fw-semibold fs-6 text-gray-500">Copies</div>
                                 </div>
                                 <div class="align-self-end pb-3">
                                     @foreach (var category in Model.Categories)

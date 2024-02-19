@@ -45,21 +45,7 @@ namespace Bookify.Controllers
             var viewModel = _mapper.Map<AuthorViewModel>(author);
 
             return PartialView("_AuthorRow", viewModel);
-        }
-        [HttpGet]
-        [AjaxOnly]
-        public IActionResult Preview(int id)
-        {
-            var AuthorView = _context.authors.Include(n => n.Nationality).SingleOrDefault(b => b.Id == id );
-           
-            if (AuthorView is null)
-                return NotFound();
-
-            var model = _mapper.Map<AuthorFormViewModel>(AuthorView);
-            
-            return PartialView("_AuthorForm", PopulateViewModel(model));
-
-        }
+        }        
 
         [HttpGet]
         [AjaxOnly]

@@ -23,7 +23,7 @@
 
 <div class="card-body flex-row">
     <div class="table-responsive">
-        <form method="post"   class="overflow-hidden" asp-controller="Books" enctype="multipart/form-data" id="Form">
+        <form method="post" class="overflow-hidden" asp-controller="Books" enctype="multipart/form-data" id="Form">
             @if (Model.Id > 0)
             {
                 <input type="hidden" asp-for="Id" />
@@ -42,7 +42,7 @@
                         </svg>
 
                         <input type="file" asp-for="Image" accept=".png, .jpg, .jpeg" />
-                        <input type="hidden" name="avatar_remove" />                        
+                        <input type="hidden" name="avatar_remove" />
                     </label>
                     <span class="btn btn-icon btn-circle btn-color-muted btn-active-color-primary w-25px h-30px bg-body shadow"
                           data-kt-image-input-action="cancel"
@@ -62,7 +62,7 @@
                 <span asp-validation-for="@Model.Image" class="text-danger d-block"></span>
                 <div class="form-text">Allowed Files Types: PNG, JPG, JPEG Only, and Cannot be more than 2MB.</div>
             </div>
-            
+
             <div class="row">
                 <div class="col-md-5">
                     <div class="row">
@@ -70,17 +70,17 @@
                             <!--begin::Input group-->
                             <div class="form-floating mb-5">
                                 <input type="text" class="form-control form-control-solid" placeholder="Title" asp-for="Title" />
-                                <label asp-for="Title"></label>                                
-                            </div>                            
+                                <label asp-for="Title"></label>
+                            </div>
                             <span asp-validation-for="@Model.Title" class="text-danger d-block"></span>
                         </div>
-                    </div>  
+                    </div>
                     <div class="row">
                         <div class="col">
                             <div class="form-floating mb-5">
                                 <input type="text" class="form-control form-control-solid" placeholder="Title" asp-for="Pages" />
-                                <label asp-for="Pages"></label>                                
-                            </div>                            
+                                <label asp-for="Pages"></label>
+                            </div>
                             <span asp-validation-for="@Model.Pages" class="text-danger d-block"></span>
                         </div>
                     </div>
@@ -90,7 +90,7 @@
                                 <select class="form-select form-select-solid js-select2" data-placeholder="Select An Author" asp-for="@Model.AuthorId" asp-items="@Model.Authors">
                                     <option value="">Select An Author</option>
                                 </select>
-                                <label asp-for="AuthorId"></label>                                
+                                <label asp-for="AuthorId"></label>
                             </div>
                             <span asp-validation-for="@Model.AuthorId" class="text-danger d-block"></span>
                         </div>
@@ -100,8 +100,8 @@
                             <div class="mb-5">
                                 <select class="form-select form-select-solid js-select2" data-placeholder="Select Categories" asp-for="SelectedCategories" asp-items="@Model.Categories">
                                     <option value="">Select Categories</option>
-                                </select>                                
-                            </div>                            
+                                </select>
+                            </div>
                             <span asp-validation-for="@Model.SelectedCategories" class="text-danger d-block"></span>
                         </div>
                     </div>
@@ -110,8 +110,8 @@
                             <!--begin::Input group-->
                             <div class="form-floating mb-5">
                                 <input type="text" class="form-control form-control-solid" placeholder="Publisher" asp-for="Publisher" />
-                                <label asp-for="Publisher"></label>                                
-                            </div>                            
+                                <label asp-for="Publisher"></label>
+                            </div>
                             <span asp-validation-for="@Model.Publisher" class="text-danger d-block"></span>
                         </div>
                     </div>
@@ -121,8 +121,8 @@
                                 <input class="form-check-input" type="checkbox" id="flexCheckboxLg" asp-for="IsAvaliableForRental" />
                                 <label class="form-check-label" for="flexCheckboxLg">
                                     Is Available For Rent
-                                </label>                                
-                            </div>      
+                                </label>
+                            </div>
                             <span asp-validation-for="@Model.IsAvaliableForRental" class="text-danger d-block"></span>
                         </div>
                     </div>
@@ -131,8 +131,8 @@
                             <!--begin::Input group-->
                             <div class="form-floating mb-5">
                                 <input type="text" class="form-control form-control-solid js-datepicker" placeholder="Publishing Date" asp-for="PublishingDate" />
-                                <label asp-for="PublishingDate"></label>                                
-                            </div>                            
+                                <label asp-for="PublishingDate"></label>
+                            </div>
                             <span asp-validation-for="@Model.PublishingDate" class="text-danger d-block"></span>
                         </div>
                     </div>
@@ -141,21 +141,19 @@
                             <!--begin::Input group-->
                             <div class="form-floating mb-5">
                                 <input type="text" class="form-control form-control-solid" placeholder="Hall" asp-for="Hall" />
-                                <label asp-for="Hall"></label>                                
-                            </div>                            
+                                <label asp-for="Hall"></label>
+                            </div>
                             <span asp-validation-for="@Model.Hall" class="text-danger d-block"></span>
                         </div>
-                    </div>                    
-                </div>                
+                    </div>
+                </div>
                 <div class="col-md-7">
                     <div class="row">
                         <div class="col px-2 me-5">
                             <div class="form-floating mb-5">
                                 <label asp-for="Description" class="form-label"></label>
-                                <textarea asp-for="Description" class="form-control js-tinymce" data-kt-autosize="true" style="height:150px;">
-                            Write Book Describtion.......
-                        </textarea>                                
-                            </div>                            
+                                <textarea asp-for="Description" class="form-control js-tinymce" data-kt-autosize="true" style="height:150px;" placeholder=" Write Book Description......."></textarea>                                
+                            </div>
                             <span asp-validation-for="@Model.Description" class="text-danger d-block"></span>
                         </div>
                     </div>
@@ -179,7 +177,7 @@
 </div>
 
 
-@section Scripts{
+@section Scripts {
     <script src="~/assets/plugins/tinymce/tinymce.bundle.js"></script>
     <partial name="_ValidationScriptsPartial" />
 

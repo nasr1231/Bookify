@@ -12,6 +12,7 @@
         public string Publisher { get; set; } = null!;
         public DateTime PublishingDate { get; set; }
         public string? ImageUrl { get; set; }
+        public string? ImageThumbnail { get; set; }
         public string Hall { get; set; } = null!;
         public bool IsAvaliableForRental { get; set; }   
         public string Description { get; set; } = null!;

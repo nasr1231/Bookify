@@ -1,4 +1,5 @@
 ﻿using CloudinaryDotNet;
+using CloudinaryDotNet.Actions;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Options;
 
@@ -21,9 +22,9 @@ namespace Bookify.Controllers
 
             Account account = new()
             {
-                Cloud = cloudinary.Value.CloudName,
+                Cloud = cloudinary.Value.Cloud,
                 ApiKey = cloudinary.Value.APIKey,
-                ApiSecret = cloudinary.Value.APISecret,
+                ApiSecret = cloudinary.Value.APISecret,                
             };
             _cloudinary = new Cloudinary(account);
         }
@@ -89,12 +90,23 @@ namespace Bookify.Controllers
 
                 var imageName = $"{Guid.NewGuid()}{extension}";
 
-                var path = Path.Combine($"{_webHostEnvironment.WebRootPath}/Images/Books", imageName);
+                //var path = Path.Combine($"{_webHostEnvironment.WebRootPath}/Images/Books", imageName);
 
-                using var stream = System.IO.File.Create(path);
-                await model.Image.CopyToAsync(stream);
+                //using var stream = System.IO.File.Create(path);
+                //await model.Image.CopyToAsync(stream);
+                // book.ImageUrl = imageName;
 
-                book.ImageUrl = imageName;
+                using var stream = model.Image.OpenReadStream();
+                var imageParameters = new ImageUploadParams
+                {
+                    File = new FileDescription(imageName, stream),
+                    UseFilename = true,
+                };
+
+                var result = await _cloudinary.UploadAsync(imageParameters);
+
+                book.ImageUrl = result.SecureUrl.ToString();
+                book.ImageThumbnail = GetThumbnailUrl(book.ImageUrl);
             }
 
             foreach (var category in model.SelectedCategories)
@@ -227,6 +239,17 @@ namespace Bookify.Controllers
             var book = _context.Books.FirstOrDefault(b => b.Title == model.Title && b.AuthorId == model.AuthorId);
             var IsAllowed = book is null || book.Id.Equals(model.Id);
             return Json(IsAllowed);
+        }
+
+        private string GetThumbnailUrl(string Url)
+        {
+            var seprator = "image/upload/";
+            var urlParts = Url.Split(seprator);
+
+            var thumbnailUrl = $"{urlParts[0]}{seprator}c_thumb,w_200,g_face/{urlParts[1]}";
+
+            return thumbnailUrl;
+
         }
     }
 }
